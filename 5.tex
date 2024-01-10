@@ -1,0 +1,85 @@
+\setcounter{chapter}{4}
+\chapter{Probabilistic Analysis and Randomized Algorithms}
+%Section 5.1-----------------------------------------------------------------------
+\section{The hiring problem}
+\subsection*{Exercises}
+\begin{enumerate}[\thesection-1]
+%
+\item Recall the definition of total order. Since the order in which the candidates are presented is random, every pair of candidates can appear as candidate $1$ and candidate $2$. Use the fact that you always know whether candidate $2$ is better than candidate $1$.
+%
+\item Let $m \defas b - a + 1$. If $m = 2^n$ for some $n \in \pint$, then assign the binary strings over $\sete{0, 1}$ of length $n$ (say, in lexicographic order) to the numbers $a, \etl, b$; make $n$ calls to $\proc{Random}(0, 1)$ in a row. Otherwise, let $n \defas \ceil{\lg m}$, and assign the first $m$ binary strings (in lexicographic order) to the numbers $a, \etl, b$; make $n$ calls to $\proc{Random}(0, 1)$ in a row, and when it produces the remaining $2^n - m$ unassigned binary strings, perform $n$ calls to $\proc{Random}(0, 1)$ again until it produces an assigned binary string.
+%
+\item An algorithm is given as follows.
+\begin{codebox}
+\Procname{$\proc{Unbiased-Random}$}
+\li $b_1 \gets \proc{Biased-Random}$
+\li \If $b_1 \isequal 0$
+\li \Then
+          $b_2 \gets \proc{Biased-Random}$
+\li       \If $b_2 \isequal 0$
+\li       \Then
+                \Return $\proc{Unbiased-Random}$
+\li       \Else
+\li             \Return $0$
+\zi             \Comment{The case of $(b_1, b_2) = (0, 1)$ occurs with probability $p(1 - p)$ and is assigned to the value $0$}
+          \End
+\li \Else \Comment{$b_1 \isequal 1$}
+\li       $b_2 \gets \proc{Biased-Random}$
+\li       \If $b_2 \isequal 0$
+\li       \Then
+                \Return $1$
+\zi             \Comment{The case of $(b_1, b_2) = (1, 0)$ occurs with probability $p(1 - p)$ and is assigned to the value $1$}
+\li       \Else
+\li             \Return $\proc{Unbiased-Random}$
+          \End
+     \End
+\end{codebox}
+%
+\end{enumerate}
+%End of Section 5.1----------------------------------------------------------------
+
+\setcounter{section}{2}
+%Section 5.3-----------------------------------------------------------------------
+\section{Randomized algorithms}
+\begin{enumerate}[\thesection-1]
+%
+\item Unroll the \For loop of $\proc{Randomly-Permute}(A, n)$ for $i = 1$.
+\begin{codebox}
+\Procname{$\proc{Randomly-Permute}'(A, n)$}
+\li swap $A[1]$ with $A[\proc{Random}(1, n)]$
+\li \For $i \gets 2$ \To $n$
+\li \Do
+        swap $A[i]$ with $A[\proc{Random}(i, n)]$
+    \End
+\end{codebox}
+The associated loop invariant is below.
+\begin{loopinv}
+Just prior to the $(i - 1)$st iteration of the \For loop of lines $2$-$3$, for each possible $(i - 1)$-permutation of the $n$ elements, the subarray $A[1 \subarr i - 1]$ contains this $(i - 1)$-permutation with probability $(n - i + 1)!/n!$.
+\end{loopinv}
+%
+\setcounter{enumi}{2}
+%
+\item Let $n \geq 3$. The procedure $\proc{Permute-With-All}(A, n)$ does not produce a uniform random permutation. To see this, consider a complete $n$-ary rooted tree of height $n$ in which the $n$ children of each node at depth $(i - 1)$, where $i = 1, \etl, n$, correspond to the $n$ possible outcomes produced by the call to $\proc{Random}(1, n)$ in the $i$th iteration of the \For loop of $\proc{Permute-With-All}(A, n)$; thus, the leaves give exactly the possible outcomes by executing $\proc{Permute-With-All}(A, n)$. Note that there are $n^n$ leaves, while the total number of $n$-permutations of $A$ is $n!$. Since $n - 1$ does not divide $n$, neither does $n!$ divide $n^n$. Consequently, some $n$-permutations are more likely than others.
+%
+\setcounter{enumi}{4}
+%
+\item Prove the loop invariant below.
+\begin{loopinv}
+Just prior to the $(k - n + m)$th iteration of the \For loop of lines $2$-$6$, every $(k - n + m - 1)$-combination of the set $\sete{1, \etl, k - 1}$ is equally likely to be the set $S$, with probability $1/{k - 1 \choose k - n + m - 1}$.
+\end{loopinv}
+In the maintenance part, distinguish two cases based on whether or not it holds that $i \in S$ or $i = k$ immediately after the call to $\proc{Random}(i, k)$ on line $3$ of the procedure $\proc{Random-Sample}(m, n)$.
+
+\begin{remark}
+Like many methods based on randomness (e.g., Exercise 5.1-3), the procedure $\proc{Random-Sample}(m, n)$ works by ``interpreting'' the outcomes of executing a random procedure to achieve a desired distribution. A similar idea that kind of goes the other way around is the following counting argument to show that the number of pairs $(a, b)$, where $a \leq b$ are from the set $\sete{1, \etl, n}$, is equal to ${n + 1 \choose 2}$: The number of such pairs is equal to the number of $2$-combinations of the set $\sete{1, \etl, n, \mbox{``duplicate''}}$, where for each $k \in \sete{1, \etl, n}$ the $2$-combination $\sete{i, \mbox{``duplicate''}}$ is interpreted as the pair $(k, k)$.
+\end{remark}
+%
+\end{enumerate}
+%End of Section 5.3----------------------------------------------------------------
+
+%Problems of Chapter 5-------------------------------------------------------------
+\section*{Problems}
+\begin{enumerate}[\thechapter-1]
+%
+\item Skipped.
+%
+\end{enumerate}

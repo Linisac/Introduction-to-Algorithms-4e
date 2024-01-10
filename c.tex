@@ -1,0 +1,41 @@
+\setcounter{chapter}{2}
+\chapter{Counting and Probability}
+%Section C.1-----------------------------------------------------------------------
+\section{Counting}
+\subsection*{Exercises}
+\begin{enumerate}[\thesection-1]
+%
+\item For $1 \leq k \leq n$, the number of $k$-substrings of an $n$-string is $(n - k + 1)$; there is one $0$-substring of an $n$-string, namely the empty string. Therefore, an $n$-string has in total
+\[
+1 + \sum^n_{k = 1} (n - k + 1) = 1 + \frac{1}{2}n(n + 1)
+\]
+substrings.
+
+Note that the number of nonempty substrings is equal to ${n + 1 \choose 2}$, and it can be ``explained'' by this counting argument: Every nonempty substring can be identified by the smallest and the greatest positions, namely two (not necessarily distinct) numbers $i$ and $j$ from the set $\sete{1, \etl, n}$; the total number of combinations of $i$ and $j$ is equal to the number of $2$-combinations of the set $\sete{1, \etl, n, \mbox{``duplicate''}}$, where $\sete{k, \mbox{``duplicate''}}$ is interpreted as $i = j = k$.
+%
+\setcounter{enumi}{4}
+%
+\item Consider the $k$-combinations of an $n$-set, in which exactly one of the $k$ chosen member is a designated \emph{leader}. Either
+\begin{inparaenum}[(1)]
+%%
+\item first choose the $k$-combination (including the leader) and then choose one of the $k$ members as the leader, or
+%%
+\item first choose the leader and then choose the remaining $k - 1$ non-leader members.
+%%
+\end{inparaenum}
+%
+\item Consider the $(k + 1)$-combinations of an $n$-set, in which exactly one of the $k + 1$ chosen member is a designated \emph{leader}. Either
+\begin{inparaenum}[(1)]
+%%
+\item first choose the $k$ non-leader members and then choose the leader from the remaining $n - k$ objects (not chosen earlier), or
+%
+\item first choose the leader and then choose the $k$ members from the remaining $n - 1$ objects.
+%%
+\end{inparaenum}
+%
+\setcounter{enumi}{8}
+%
+\item Consider the number of nonempty substrings of an $n$-string: Each substring can be identified by the leftmost position and the rightmost position.
+%
+\end{enumerate}
+%End of Section C.1----------------------------------------------------------------

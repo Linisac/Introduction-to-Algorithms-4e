@@ -1,0 +1,102 @@
+%Last modified by Linisac, 03:37AM 04/11/2016
+\documentclass{report}
+
+%Packages
+\usepackage{titlesec}
+\RequirePackage{clrscode4e}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{enumerate}
+\usepackage{paralist}
+\usepackage{colonequals}
+\usepackage{appendix}
+\usepackage[margin=1.5cm]{geometry}
+
+%New oommands
+%%Styles
+\newcommand{\textib}[1]{\textit{\textbf{#1}}}
+\newcommand{\df}[2]{{\displaystyle\frac{#1}{#2}}}
+%%Relational symbols
+\newcommand{\defas}{\colonequals} %defined as
+%%Enumeration, sequence, chain and serial
+\newcommand{\enum}[2]{#1_1, #1_2, \ldots, #1_#2} %enumeration: \enum{a}{n} gives a_1, a_2, \ldots, a_n
+\newcommand{\seq}[2]{\langle\enum{#1}{#2}\rangle} %sequence: \seq{a}{n} \gives \langle a_1, a_2, \ldots, a_n \rangle
+\newcommand{\chaininfp}[3]{#1 #2 #3 #2\ldots} %primitive infinite chain: \chaininfp{a}{<}{b} gives a < b < \ldots
+\newcommand{\chaininf}[2]{\chaininfp{#1_1}{#2}{#1_2}} %infinite chain: \chaininf{a}{<} gives a_1 < a_2 < \ldots
+\newcommand{\chain}[3]{\chaininf{#1}{#3}#3#1_#2} %(finite) chain: \chain{a}{n}{<} gives a_1 < a_2 < \ldots < a_n
+\newcommand{\chaininc}[2]{\chain{#1}{#2}{<}} %increasing chain: \chaininc{a}{n} gives a_1 < a_2 < \ldots < a_n
+\newcommand{\chaindec}[2]{\chain{#1}{#2}{>}} %decreasing chain: \chaindec{a}{n} gives a_1 > a_2 > \ldots > a_n
+\newcommand{\chainni}[2]{\chain{#1}{#2}{\geq}} %noninreasing chain: \chainni{a}{n} gives a_1 \geq a_2 \geq \ldots \geq a_n
+\newcommand{\chainnd}[2]{\chain{#1}{#2}{\leq}} %nondecreasing chain: \chainnd{a}{n} gives a_1 \leq a_2 \leq \ldots \leq a_n
+\newcommand{\serialinfp}[3]{#1 #2 #3 #2\ldots} %primitive infinite serial operation: \serialinfp{a}{+}{b} gives a + b + \ldots
+\newcommand{\serialinf}[2]{\serialinfp{#1_1}{#2}{#1_2}} %infinite serial operation: \serialinf{a}{+} gives a_1 + a_2 + \ldots
+\newcommand{\serial}[3]{\serialinf{#1}{#3}#3#1_#2} %(finite) serial operation: \serial{a}{n}{+} gives a_1 + a_2 + \ldots + a_n
+\newcommand{\etl}{\ldots} %etc, lower
+\newcommand{\etc}{\cdots} %etc, centered
+%%Mathematical operators notations
+\newcommand{\multp}{\cdot} %multiplication
+%%Integer functions
+\newcommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
+\newcommand{\ceil}[1]{\left\lceil #1 \right\rceil}
+%%Asymptotic functions notations
+\newcommand{\bigoh}[1]{O\left(#1\right)}
+\newcommand{\littleoh}[1]{o\left(#1\right)}
+\newcommand{\atheta}[1]{\Theta\left(#1\right)} %asymptotic theta
+\newcommand{\bigomega}[1]{\Omega\left(#1\right)}
+\newcommand{\littleomega}[1]{\omega\left(#1\right)}
+%%Set-theoretic notations
+\newcommand{\sete}[1]{\left\{#1\right\}} %set by enumeration
+\newcommand{\setd}[2]{\left\{#1 : #2\right\}} %set by description
+\newcommand{\intersect}{\cap}
+\newcommand{\union}{\cup}
+\newcommand{\cmplmnt}[1]{\overline{#1}}
+\newcommand{\nat}{\mathbb{N}} %the set of natural numbers
+\newcommand{\zah}{\mathbb{Z}} %the set of integers
+\newcommand{\pint}{{\zah^+}} %the set of positive integers
+\newcommand{\rat}{\mathbb{Q}} %the set of rational numbers
+\newcommand{\real}{\mathbb{R}} %the set of real numbers
+\newcommand{\cart}{\times} %cartesian product
+\newcommand{\card}[1]{\left|#1\right|} %cardinality
+\newcommand{\inv}[1]{#1^{-1}} %inverse (of a function)
+%%Order-theoretic notations
+\newcommand{\maximum}[1]{\max\left(#1\right)}
+\newcommand{\minimum}[2]{\min\left(#1\right)}
+%%Probability-theoretic notations
+\newcommand{\ind}[1]{\mathop{\mathrm{I}} \left\{ #1 \right\}} %indicator random variable
+\newcommand{\pr}[1]{\mathop{\mathrm{Pr}} \left\{ #1 \right\}} %probability
+\newcommand{\prc}[2]{\mathop{\mathrm{Pr}} \left\{ #1 \, \left| \, #2 \right\}\right.} %conditional prob.
+\newcommand{\ex}[1]{\mathop{\mathrm{E}} \left[ #1 \right]} %expectation
+\newcommand{\var}[1]{\mathop{\mathrm{Var}} \left[ #1 \right]} %variation
+%%Graph-theoretic notations
+\newcommand{\degree}[1]{\mathrm{degree}(#1)}
+\newcommand{\edge}[1]{(#1)}
+
+%New environment
+\newcommand{\Input}{\item[Input:]} %ingredient of the new environment `problem'
+\newcommand{\Output}{\item[Output:]} %ingredient of the new environment `problem'
+\newenvironment{problem}{\begin{description}}{\end{description}} %specification of a computational problem
+\newenvironment{loopinv}{\begin{quote}}{\end{quote}} %loop invariant
+\newcommand{\Init}{\item[Initialization:]} %ingredient of the new environment `loopinvpf'
+\newcommand{\Main}{\item[Maintenance:]} %ingredient of the new environment `loopinvpf'
+\newcommand{\Term}{\item[Termination:]} %ingredient of the new environment `loopinvpf'
+\newenvironment{loopinvpf}{\begin{description}}{\end{description}} %proof of loop invariant
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
+%Custom settings
+\titleformat{\chapter}[hang]{\huge\bfseries}{\thechapter}{.5em}{}
+\renewcommand{\thesubsection}{}
+
+\begin{document}
+%\noindent
+%\textsc{\Huge Introduction to\\Algorithms}
+%\\
+%\textsc{\Large - Annotations and Solutions Manual -}
+%\\
+%\\
+%\input{5}
+\begin{appendices}
+\input{c}
+\end{appendices}
+\end{document} 
