@@ -17,6 +17,8 @@
 %%Styles
 \newcommand{\textib}[1]{\textit{\textbf{#1}}}
 \newcommand{\df}[2]{{\displaystyle\frac{#1}{#2}}}
+\newcommand{\ds}[1]{{\displaystyle#1}}
+\newcommand{\paren}[1]{{\rm(}#1{\rm)}} %straight parenthese
 %%Relational symbols
 \newcommand{\defas}{\colonequals} %defined as
 %%Enumeration, sequence, chain and serial
@@ -46,11 +48,14 @@
 \newcommand{\bigomega}[1]{\Omega\left(#1\right)}
 \newcommand{\littleomega}[1]{\omega\left(#1\right)}
 %%Set-theoretic notations
-\newcommand{\sete}[1]{\left\{#1\right\}} %set by enumeration
-\newcommand{\setd}[2]{\left\{#1 : #2\right\}} %set by description
-\newcommand{\intersect}{\cap}
+\newcommand{\set}[1]{\left\{#1\right\}} %prototype of set
+\newcommand{\sete}{\set} %set by enumeration
+\newcommand{\suchthat}{:}
+\newcommand{\setm}[2]{\set{#1 \suchthat #2}} %set by math description
+\newcommand{\sett}[2]{\set{#1 \suchthat \mbox{#2}}} %set by text description
+\newcommand{\intsc}{\cap} %intersection
 \newcommand{\union}{\cup}
-\newcommand{\cmplmnt}[1]{\overline{#1}}
+\newcommand{\cmpl}[1]{\overline{#1}} %complement
 \newcommand{\nat}{\mathbb{N}} %the set of natural numbers
 \newcommand{\zah}{\mathbb{Z}} %the set of integers
 \newcommand{\pint}{{\zah^+}} %the set of positive integers
@@ -60,14 +65,14 @@
 \newcommand{\card}[1]{\left|#1\right|} %cardinality
 \newcommand{\inv}[1]{#1^{-1}} %inverse (of a function)
 %%Order-theoretic notations
-\newcommand{\maximum}[1]{\max\left(#1\right)}
-\newcommand{\minimum}[2]{\min\left(#1\right)}
+\newcommand{\maxin}[1]{\max\left(#1\right)}
+\newcommand{\minin}[1]{\min\left(#1\right)}
 %%Probability-theoretic notations
-\newcommand{\ind}[1]{\mathop{\mathrm{I}} \left\{ #1 \right\}} %indicator random variable
-\newcommand{\pr}[1]{\mathop{\mathrm{Pr}} \left\{ #1 \right\}} %probability
-\newcommand{\prc}[2]{\mathop{\mathrm{Pr}} \left\{ #1 \, \left| \, #2 \right\}\right.} %conditional prob.
-\newcommand{\ex}[1]{\mathop{\mathrm{E}} \left[ #1 \right]} %expectation
-\newcommand{\var}[1]{\mathop{\mathrm{Var}} \left[ #1 \right]} %variation
+\newcommand{\ind}[1]{\mathop{\mathrm{I}}\left\{#1\right\}} %indicator random variable
+\newcommand{\given}{\mid}
+\newcommand{\pr}[1]{\Pr\left\{#1\right\}} %probability
+\newcommand{\ex}[1]{\mathop{\mathrm{E}}\left[#1\right]} %expectation
+\newcommand{\var}[1]{\mathop{\mathrm{Var}} \left[#1\right]} %variation
 %%Graph-theoretic notations
 \newcommand{\degree}[1]{\mathrm{degree}(#1)}
 \newcommand{\edge}[1]{(#1)}

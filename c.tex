@@ -1,6 +1,6 @@
 \setcounter{chapter}{2}
 \chapter{Counting and Probability}
-%Section C.1-----------------------------------------------------------------------
+%Section C.1------------------------------------------------------------------------------------------------------------
 \section{Counting}
 \subsection*{Exercises}
 \begin{enumerate}[\thesection-1]
@@ -37,5 +37,95 @@ Note that the number of nonempty substrings is equal to ${n + 1 \choose 2}$, and
 %
 \item Consider the number of nonempty substrings of an $n$-string: Each substring can be identified by the leftmost position and the rightmost position.
 %
+\item Assume that $n \geq 2$. The expression ${n \choose k}$ achieves its locally maximum value when ${n \choose k} / {n \choose k - 1} \geq 1$ and ${n \choose k + 1} / {n \choose k} \geq 1$ hold simultaneously.
+%
+\item Combinatorial argument: choose $j + k$ items out of $n$ vs.~choose $j + k$ items out of $n$ in which $j$ are assigned a label.
+%
+\item Skipped.
+%
+\setcounter{enumi}{14}
+%
+\item Ignore $k = 0$ on the left hand side, i.e., assume $k \geq 1$. Form a nonempty group of people out of $n$, in which there is a \emph{leader}. The left side is calculated by the size of the group, while the right side is calculated by asking, after the leader has been chosen, whether each of the remaining $n - 1$ people is to be counted in or not.
+%
+\item Skipped.
+%
 \end{enumerate}
-%End of Section C.1----------------------------------------------------------------
+%End of Section C.1-----------------------------------------------------------------------------------------------------
+
+%Section C.2------------------------------------------------------------------------------------------------------------
+\section{Probability}
+\subsection*{Exercises}
+\begin{enumerate}[\thesection-1]
+%
+\setcounter{enumi}{1}
+%
+\item Let $A_1, A_2, \etl$ be a countably infinite sequence of events. Observe that
+\begin{enumerate}[(1)]
+%%
+\item $\pr{A_{i + 1}} = \pr{(A_1 \union \etc \union A_i) \intsc A_{i + 1}} + \pr{(\cmpl{A_1} \intsc \etc \intsc \cmpl{A_i}) \intsc A_{i + 1}}$ for all $i \geq 1$ (by axiom 3),
+%%
+\item $A_1 \union A_2 \union \etc = A_1 \union (\cmpl{A_1} \intsc A_2) \union \etc$.
+%%
+\end{enumerate}
+By (1) and axiom 1, we have that
+\begin{enumerate}[(1)]
+%
+\setcounter{enumii}{2}
+%%
+\item $0 \leq \pr{(\cmpl{A_1} \intsc \etc \intsc \cmpl{A_{i - 1}}) \intsc A_i} \leq \pr{A_i}$ for all $i \geq 2$.
+%%
+\end{enumerate}
+Thus,
+\[
+\begin{array}{lll}
+     & \pr{A_1 \union A_2 \union \etc} & \cr
+=    & \pr{A_1 \union (\cmpl{A_1} \intsc A_2) \union \etc} & \mbox{(by (2))} \cr
+=    & \ds{\pr{A_1} + \sum^\infty_{i = 2} \pr{(\cmpl{A_1} \intsc \etc \intsc \cmpl{A_{i - 1}}) \intsc A_i}} & \mbox{(by axiom 3)} \cr
+\leq & \ds{\pr{A_1} + \sum^\infty_{i = 2} \pr{A_i}} & \mbox{(by (3))} \cr
+=    & \pr{A_1} + \pr{A_2} + \etc. & \cr
+\end{array}
+\]
+%
+\setcounter{enumi}{4}
+%
+\item By induction on $n \geq 2$.
+%
+\item Working.
+%
+\item Let $S = \sete{(0, 0, 0), (0, 1, 0), (1, 0, 0), (1, 1, 0), (0, 0, 1)}$, $A = \setm{(x, y, z)}{x = 0}$, $B = \setm{(x, y, z)}{y = 0}$ and $C = \setm{(x, y, z)}{z = 0}$.
+%
+\item Consider the following list of symbols for different events.\\
+\begin{tabular}{lll}
+$J$  & for & ``Jeff will pass,'' \cr
+$T$  & for & ``Tim will pass,'' \cr
+$C$  & for & ``Carmine will pass,'' \cr
+$J'$ & for & ``Professor Gore tells Carmine that Jeff will fail,'' \cr
+$T'$ & for & ``Professor Gore tells Carmine that Tim will fail.'' \cr
+\end{tabular}\\
+Assume that if Carmine is the student that will pass, then Professor Gore tells Carmine randomly that Jeff will fail or that Tim will fail (with equal probabilities $1/2$).
+
+Observe that $\pr{J} = \pr{T} = \pr{C} = 1/3$ and that $\pr{J' \given J} = 0$, $\pr{J' \given T} = 1$ and $\pr{J' \given C} = 1/2$. By Bayes's theorem, we have
+\[
+\pr{C \given J'} = \frac{\pr{C} \pr{J' \given C}}{\pr{J} \pr{J' \given J} + \pr{T} \pr{J' \given T} + \pr{C} \pr{J' \given C}} = \frac{1}{3}.
+\]
+%
+\end{enumerate}
+%End of Section C.2-----------------------------------------------------------------------------------------------------
+
+%Section C.3------------------------------------------------------------------------------------------------------------
+\section{Discrete random variables}
+\subsection*{Exercises}
+\begin{enumerate}[\thesection-1]
+%
+\setcounter{enumi}{3}
+%
+\item It is useful to prove that \emph{for nonnegative random variables $Z$ and $W$ such that $Z(s) \leq W(s)$ for all $s \in S$ \paren{$S$ is the sample space}, it holds that $\ex{Z} \leq \ex{W}$} (or alternatively, that \emph{for nonnegative random variables $Z$, it holds that $\ex{Z} \geq 0$}).
+%
+\setcounter{enumi}{7}
+%
+\item It is useful to prove that \emph{for nonnegative random variables $Z$, it holds that $\ex{Z} \geq 0$}. Then, use (C.31).
+%
+\item Observe that $X$ is an indicator random variable and then apply Lemma 5.1.
+%
+\end{enumerate}
+%End of Section C.3-----------------------------------------------------------------------------------------------------
