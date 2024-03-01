@@ -1,6 +1,6 @@
 \setcounter{chapter}{4}
 \chapter{Probabilistic Analysis and Randomized Algorithms}
-%Section 5.1-----------------------------------------------------------------------
+%Section 5.1------------------------------------------------------------------------------------------------------------
 \section{The hiring problem}
 \subsection*{Exercises}
 \begin{enumerate}[\thesection-1]
@@ -36,10 +36,10 @@
 \end{codebox}
 %
 \end{enumerate}
-%End of Section 5.1----------------------------------------------------------------
+%End of Section 5.1-----------------------------------------------------------------------------------------------------
 
 \setcounter{section}{2}
-%Section 5.3-----------------------------------------------------------------------
+%Section 5.3------------------------------------------------------------------------------------------------------------
 \section{Randomized algorithms}
 \begin{enumerate}[\thesection-1]
 %
@@ -74,12 +74,99 @@ Like many methods based on randomness (e.g., Exercise 5.1-3), the procedure $\pr
 \end{remark}
 %
 \end{enumerate}
-%End of Section 5.3----------------------------------------------------------------
+%End of Section 5.3-----------------------------------------------------------------------------------------------------
 
-%Problems of Chapter 5-------------------------------------------------------------
-\section*{Problems}
-\begin{enumerate}[\thechapter-1]
+%Section 5.4------------------------------------------------------------------------------------------------------------
+\section{Probabilistic analysis and further uses of indicator random variables}
+\begin{enumerate}[\thesection-1]
+\setcounter{enumi}{2}
 %
-\item Skipped.
+\item Note how this exercise question is similar to the birthday paradox presented in Subsection 5.4.1~in text. For $1 \leq k \leq b + 1$ let $A_k$ be the event that the $k$th toss ends up in an empty bin, and for $1 \leq k \leq b$ let $B_k$ be the event that the first $k$ tosses end up in an empty bin each (these events are similar to those given in 5.4.1). We have $\pr{A_1} = \pr{B_1} = 1$ and $\pr{A_{b + 1}} = 0$; more importantly, for $2 \leq k \leq b$, we have
+\[
+\pr{A_k \given B_{k - 1}} = \parenf{1 - \frac{k - 1}{b}}
+\]
+and hence
+\[
+\begin{array}{lcl}
+\pr{B_k} & = & \pr{B_{k - 1}} \pr{A_k \given B_{k - 1}} \cr
+         & \etv & \cr
+         & = & \pr{B_1} \pr{A_2 \given A_1} \pr{A_3 \given B_2} \etc \pr{A_k \given B_{k - 1}} \cr
+         & = & \ds{1 \multp \parenf{1 - \frac{1}{b}} \parenf{1 - \frac{2}{b}} \etc \parenf{1 - \frac{k - 1}{b}}}. \cr
+\end{array}
+\]
+because $B_k = A_k \intsc B_{k - 1}$.
+
+Let $X$ be the number of tosses until some bin contains two balls. Then, for $2 \leq k \leq b + 1$ we have
+\[
+\pr{X = k} = \pr{\cmpl{A_k} \intsc B_{k - 1}} = \pr{B_{k - 1}} \pr{\cmpl{A_k} \given B_{k - 1}} = 1 \multp \parenf{1 - \frac{1}{b}} \parenf{1 - \frac{2}{b}} \etc \parenf{1 - \frac{k - 2}{b}} \multp \frac{k - 1}{b}.
+\]
+It suffices to compute
+\[
+\ex{X} = \sum^{b + 1}_{k = 2} k \pr{X = k}.
+\]
+%
+\item The birthdays are mutually independent. On page 141, the probability that all $k$ people in the room have distinct birthdays is
+\[
+\pr{B_k} = 1 \multp \parenf{1 - \frac{1}{n}} \parenf{1 - \frac{2}{n}} \etc \parenf{1 - \frac{k - 1}{n}}.
+\]
+Since there are ${n \choose k} k!$ different cases in which all the $k$ people have distinct birthdays, namely $\card{B_k} = {n \choose k} k!$, and since each case is equally likely due to the uniform distribution of birthdays, we have that, for all distinct numbers $n_1, \etl, n_k$ in the range $1, \etl, n$, the probability
+\[
+\pr{b_1 = n_1, \etl, b_k = n_k} = \frac{\pr{B_k}}{{n \choose k} k!} = \frac{1}{n^k}.
+\]
+This means that it is implicitly assumed that the birthdays $b_1, \etl, b_k$ are mutually independent in the analysis.
+%
+\item Assume that there are $n = 365$ days in a year and that there are $k$ people in a room. Let $E_m$ be the event that among the $k$ people, there are exactly $m$ pairs of people sharing the same birthday, each pair a distinct birthday. Then
+\[
+\card{E_0} = {n \choose k} \multp k!
+\]
+and
+\[
+\card{E_m} = \frac{{k \choose 2}{k - 2 \choose 2} \etc {k - 2m + 2 \choose 2}}{m!} \multp {n \choose k - m} \multp (k - m)!
+\]
+for $m \geq 1$. Hence,
+\[
+\pr{E_m} = \frac{\card{E_m}}{n^k}
+\]
+for $m \geq 0$ since the birthdays are mutually independent. The probability that there are at least three people sharing the same birthday is
+\[
+1 - \sum^{\floor{\frac{k}{2}}}_{m = 0} \pr{E_m}.
+\]
+%
+\item The probability that a $k$-string over a set of size $n$ forms a $k$-permutation is $\frac{{n \choose k} k!}{n^k}$. This is analogous to the birthday paradox in that there are $n$ days in a year and $k$ people in a room.
+%
+\item For $1 \leq i \leq n$, let $X_i$ and $Y_i$ be indicator random variables such that
+\[
+X_i = \ind{\mbox{the \mathmode{i}th bin is empty}},
+\]
+and
+\[
+Y_i = \ind{\mbox{the \mathmode{i}th bin contains exactly one ball}}.
+\]
+then we have
+\[
+\pr{X_i = 1} = \frac{(n - 1)^n}{n^n} = \parenf{1 - \frac{1}{n}}^n
+\]
+and
+\[
+\pr{Y_i = 1} = \frac{{n \choose 1}(n - 1)^{n - 1}}{n^n} = \parenf{1 - \frac{1}{n}}^{n - 1}.
+\]
+
+Thus,
+\[
+\ex{\sum^n_{i = 1} X_i} = \sum^n_{i = 1} \ex{X_i} = n \multp \parenf{1 - \frac{1}{n}}^n
+\]
+and
+\[
+\ex{\sum^n_{i = 1} Y_i} = \sum^n_{i = 1} \ex{Y_i} = n \multp \parenf{1 - \frac{1}{n}}^{n - 1}.
+\]
 %
 \end{enumerate}
+%End of Section 5.4-----------------------------------------------------------------------------------------------------
+
+%Problems of Chapter 5--------------------------------------------------------------------------------------------------
+%\section*{Problems}
+%\begin{enumerate}[\thechapter-1]
+%
+%\item 
+%
+%\end{enumerate}
