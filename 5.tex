@@ -160,13 +160,114 @@ and
 \ex{\sum^n_{i = 1} Y_i} = \sum^n_{i = 1} \ex{Y_i} = n \multp \parenf{1 - \frac{1}{n}}^{n - 1}.
 \]
 %
+\item Skipped.
+%
 \end{enumerate}
 %End of Section 5.4-----------------------------------------------------------------------------------------------------
 
 %Problems of Chapter 5--------------------------------------------------------------------------------------------------
-%\section*{Problems}
-%\begin{enumerate}[\thechapter-1]
+\section*{Problems}
+\begin{enumerate}[\thechapter-1]
 %
-%\item 
+\item
+\begin{enumerate}[(a)]
+%%
+\item Let us prove the claim for $0 \leq n \leq 2^b - 1$. First of all, every call to the procedure \proc{Increment} is a Bernoulli trial, where a success increments the counter value by $1$ and a failure leaves the counter unchanged. Denoting a success by $1$ and a failure by $0$, the outcome of performing $n$ \proc{Increment} operations can be represented by an $n$-string over $\sete{0, 1}$, in other words, the associated sample space is $\cartpwr{\sete{0, 1}}{n}$.
+\medskip\\
+Consider the sample space $\cartpwr{\sete{0, 1}}{n}$ for every $0 \leq n \leq 2^b - 1$. For all $s \in \cartpwr{\sete{0, 1}}{n}$, we write $i(s)$ for the number of $1$s in $s$ and $A_s$ for the elementary event $s$ (i.e., $A_s = \sete{s}$). Moreover, if $n \geq 1$, then we write $B_n$ for the event of all outcomes that end with a success (i.e., the set of all $n$-strings whose last character is a $1$) and, for $(n - 1)$-strings $s$, we write $A'_s$ for the event of all outcomes whose prefix is $s$ (i.e., $A'_s = \sete{s0, s1}$).\footnote{Here $s0$ and $s1$ denote the $n$-strings obtained by appending $0$ and $1$ to $s$, respectively.}
+\medskip\\
+It follows that for all $1 \leq n \leq 2^b - 1$ and all $(n - 1)$-strings $s$, we have that
+\[
+\pr{A'_s} = \pr{A_s}
+\]
+and
+\[
+\pr{B_n \given A'_s} = \frac{1}{n_{i(s) + 1} - n_{i(s)}}
+\]
+and that
+\[
+\pr{A_{s1}} = \pr{A'_s \intsc B_n} = \pr{A'_s} \multp \pr{B_n \given A'_s}
+\]
+while
+\[
+\pr{A_{s0}} = \pr{A'_s \intsc \cmpl{B_n}} = \pr{A'_s} \multp \pr{\cmpl{B_n} \given A'_s} = \pr{A'_s} \multp (1 - \pr{B_n \given A'_s}).
+\]
+
+Let $X_n$ denote the value represented by the counter after $n$ \proc{Increment} operations have been performed. The claim can then be proved by induction on $0 \leq n \leq 2^b - 1$: The base case is trivial. For the inductive case, let $1 \leq n \leq 2^b - 1$, we have
+\[
+\begin{array}{lll}
+\ex{X_n} & = & \ds{\sum_{s \in \cartpwr{\sete{0, 1}}{n}} n_{i(s)} \multp \pr{A_s}} \cr
+         & = & \ds{\sum_{s \in \cartpwr{\sete{0, 1}}{n - 1}} (n_{i(s1)} \multp \pr{A_{s1}} + n_{i(s0)} \multp \pr{A_{s0}})} \cr
+         & = & \ds{\sum_{s \in \cartpwr{\sete{0, 1}}{n - 1}} (n_{i(s) + 1} \multp \pr{A_{s1}} + n_{i(s)} \multp \pr{A_{s0}})} \cr
+         & = & \ds{\sum_{s \in \cartpwr{\sete{0, 1}}{n - 1}} (n_{i(s) + 1} \multp \pr{A'_s} \multp \pr{B_n \given A'_s} + n_{i(s)} \multp \pr{A'_s} \multp (1 - \pr{B_n \given A'_s}))} \cr
+         & = & \ds{\sum_{s \in \cartpwr{\sete{0, 1}}{n - 1}} (n_{i(s)} \multp \pr{A'_s} + (n_{i(s) + 1} - n_{i(s)}) \multp \pr{A'_s} \multp \pr{B_n \given A'_s})} \cr
+         & = & \ds{\sum_{s \in \cartpwr{\sete{0, 1}}{n - 1}} (n_{i(s)} \multp \pr{A_s} + (n_{i(s) + 1} - n_{i(s)}) \multp \pr{A_s} \multp \pr{B_n \given A'_s})} \cr
+         & = & \ds{\sum_{s \in \cartpwr{\sete{0, 1}}{n - 1}} (n_{i(s)} \multp \pr{A_s} + \pr{A_s})} \cr
+         & = & \ds{\sum_{s \in \cartpwr{\sete{0, 1}}{n - 1}} (n_{i(s)} \multp \pr{A_s}) + \sum_{s \in \cartpwr{\sete{0, 1}}{n - 1}} \pr{A_s}} \cr
+         & = & \ex{X_{n - 1}} + 1 \cr
+         & = & (n - 1) + 1 \cr
+         & = & n, \cr
+\end{array}
+\]
+where the second last equality follows by induction hypothesis.
+%%
+\item Since $\var{X_n} = \ex{X_n^2} - \ex[2]{X_n}$ by (C.31) and $\ex{X_n} = n$ by part (a), it suffices to observe
+\[
+\ex[2]{X_0} = 0
+\]
+and evaluate
+\[
+\begin{array}{lll}
+\ex[2]{X_n} & = & \ds{\sum_{s \in \cartpwr{\sete{0, 1}}{n}} (100i(s))^2 \multp \pr{A_s}} \cr
+            & = & \ds{\sum_{s \in \cartpwr{\sete{0, 1}}{n - 1}} ((100i(s1))^2 \multp \pr{A_{s1}} + (100i(s0))^2 \multp \pr{A_{s0}})} \cr
+            & = & \ex{X_{n - 1}^2} + 2 \ex{X_{n - 1}} + 100 \cr
+\end{array}
+\]
+for $n \geq 1$. Alternatively, observe that for $n_i = 100i$ we have that
+\[
+\pr{X_n / 100 = k} = \bindist(k; n, 1/100)
+\]
+with the chance of success $1/100$. By Exercise C.3-10, it follows that
+\[
+\var{X_n} = 100^2 \var{X_n / 100}.
+\]
+Then use the fact that
+\[
+\var{X_n / 100} = n \times 1/100 \times (1 - 1/100)
+\]
+by (C.44). Either way, we get $\var{X_n} = 99n$.
+%%
+\end{enumerate}
 %
-%\end{enumerate}
+\item
+\begin{enumerate}[(a)]
+%%
+\item The procedure is given as follows.
+\begin{codebox}
+\Procname{$\proc{Random-Search}(A, x)$}
+\li $n \gets \attrib{A}{length}$
+\li create an empty array $E$ of length $n$
+\li \For $i \gets 1$ \To $n$
+\li \Do
+        $E[i] \gets \const{false}$
+    \End
+\li $\id{num-elements-examined} \gets 0$
+\li \Repeat
+\li      $i \gets \proc{Random}(1, n)$
+\li      \If $A[i] \isequal x$
+\li          \Then
+                   \Return $i$
+\li          \Else
+                   \If $E[i] \isequal \const{false}$
+\li                    \Then
+                             $E[i] \gets \const{true}$
+\li                          $\id{num-elements-examined} \gets \id{num-elements-examined} + 1$
+                       \End
+             \End
+\li \Until $\id{num-elements-examined} \isequal n$
+\li print ``not found''
+\end{codebox}
+%%
+\end{enumerate}
+%
+\end{enumerate}

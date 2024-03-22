@@ -10,6 +10,7 @@
 \usepackage{enumerate}
 \usepackage{paralist}
 \usepackage{colonequals}
+\usepackage{ifthen}
 \usepackage{appendix}
 \usepackage[margin=1.5cm]{geometry}
 
@@ -58,6 +59,7 @@
 \newcommand{\rat}{\mathbb{Q}} %the set of rational numbers
 \newcommand{\real}{\mathbb{R}} %the set of real numbers
 \newcommand{\cart}{\times} %cartesian product
+\newcommand{\cartpwr}[2]{#1^{#2}} %cartesian power
 \newcommand{\card}[1]{\left|#1\right|} %cardinality
 \newcommand{\inv}[1]{#1^{-1}} %inverse (of a function)
 %%Order-theoretic notations
@@ -67,8 +69,9 @@
 \newcommand{\ind}[1]{\mathop{\mathrm{I}}\curlyf{#1}} %indicator random variable
 \newcommand{\given}{\mid}
 \newcommand{\pr}[1]{\Pr\curlyf{#1}} %probability
-\newcommand{\ex}[1]{\mathop{\mathrm{E}}\brackf{#1}} %expectation
+\newcommand{\ex}[2][]{\ifthenelse{\equal{#1}{}}{\mathop{\mathrm{E}}\brackf{#2}}{\mathop{\mathrm{E}^{#1}}\brackf{#2}}} %expectation
 \newcommand{\var}[1]{\mathop{\mathrm{Var}}\brackf{#1}} %variation
+\newcommand{\bindist}{\mathit{b}} %binomial distribution
 %%Graph-theoretic notations
 \newcommand{\degree}[1]{\mathrm{degree}\parenf{#1}}
 
