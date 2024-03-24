@@ -21,9 +21,13 @@
 \newcommand{\ds}[1]{{\displaystyle#1}}
 \newcommand{\paren}[1]{{\rm(}#1{\rm)}} %straight parenthese
 \newcommand{\parenf}[1]{\left(#1\right)} %flexible parentheses
+\newcommand{\of}{\parenf}
 \newcommand{\brackf}[1]{\left[#1\right]} %flexible brackets
+\newcommand{\ofb}{\brackf}
 \newcommand{\curlyf}[1]{\left\{#1\right\}} %flexble curly braces
+\newcommand{\ofc}{\curlyf}
 \newcommand{\mathmode}[1]{\begin{math}#1\end{math}} %math mode inside text mode nested in math mode
+\newcommand{\mathtext}[1]{\text{\rm#1}} %text mode inside math mode
 %%Relational symbols
 \newcommand{\defas}{\colonequals} %defined as
 %%Mathematical constants
@@ -39,13 +43,15 @@
 \newcommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
 \newcommand{\ceil}[1]{\left\lceil #1 \right\rceil}
 %%Asymptotic functions notations
-\newcommand{\bigoh}[1]{O\parenf{#1}}
-\newcommand{\littleoh}[1]{o\parnef{#1}}
-\newcommand{\atheta}[1]{\Theta\parenf{#1}} %asymptotic theta
-\newcommand{\bigomega}[1]{\Omega\parenf{#1}}
-\newcommand{\littleomega}[1]{\omega\parenf{#1}}
+\newcommand{\bigohf}{\mathit{O}} %big oh function symbol
+\newcommand{\bigoh}[1]{\bigohf\of{#1}} %asymptotic big oh
+\newcommand{\littleohf}{\mathit{o}} %little oh function symbol
+\newcommand{\littleoh}[1]{\littleohf\of{#1}} %asymptotic little oh
+\newcommand{\bigtheta}[1]{\Theta\of{#1}} %asymptotic theta
+\newcommand{\bigomega}[1]{\Omega\of{#1}} %asymptotic big omega
+\newcommand{\littleomega}[1]{\omega\of{#1}} %asymptotic little omega
 %%Set-theoretic notations
-\newcommand{\set}[1]{\curlyf{#1}} %prototype of set
+\newcommand{\set}[1]{\ofc{#1}} %prototype of set
 \newcommand{\sete}{\set} %set by enumeration
 \newcommand{\suchthat}{:}
 \newcommand{\setm}[2]{\set{#1 \suchthat #2}} %set by math description
@@ -62,18 +68,16 @@
 \newcommand{\cartpwr}[2]{#1^{#2}} %cartesian power
 \newcommand{\card}[1]{\left|#1\right|} %cardinality
 \newcommand{\inv}[1]{#1^{-1}} %inverse (of a function)
-%%Order-theoretic notations
-\newcommand{\maxin}[1]{\max\parenf{#1}}
-\newcommand{\minin}[1]{\min\parenf{#1}}
 %%Probability-theoretic notations
-\newcommand{\ind}[1]{\mathop{\mathrm{I}}\curlyf{#1}} %indicator random variable
+\newcommand{\ind}[1]{\mathrm{I}\ofc{#1}} %indicator random variable
 \newcommand{\given}{\mid}
-\newcommand{\pr}[1]{\Pr\curlyf{#1}} %probability
-\newcommand{\ex}[2][]{\ifthenelse{\equal{#1}{}}{\mathop{\mathrm{E}}\brackf{#2}}{\mathop{\mathrm{E}^{#1}}\brackf{#2}}} %expectation
-\newcommand{\var}[1]{\mathop{\mathrm{Var}}\brackf{#1}} %variation
+\newcommand{\pr}[1]{\Pr\ofc{#1}} %probability
+\newcommand{\exf}{\mathrm{E}} %expectation function symbol
+\newcommand{\ex}[1]{\exf\ofb{#1}} %expectation
+\newcommand{\var}[1]{\mathrm{Var}\ofb{#1}} %variation
 \newcommand{\bindist}{\mathit{b}} %binomial distribution
 %%Graph-theoretic notations
-\newcommand{\degree}[1]{\mathrm{degree}\parenf{#1}}
+\newcommand{\degree}[1]{\mathrm{degree}\of{#1}}
 
 %New environment
 \newcommand{\Input}{\item[Input:]} %ingredient of the new environment `problem'

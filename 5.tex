@@ -211,14 +211,14 @@ Let $X_n$ denote the value represented by the counter after $n$ \proc{Increment}
 \]
 where the second last equality follows by induction hypothesis.
 %%
-\item Since $\var{X_n} = \ex{X_n^2} - \ex[2]{X_n}$ by (C.31) and $\ex{X_n} = n$ by part (a), it suffices to observe
+\item Since $\var{X_n} = \ex{X_n^2} - \exf^2\ofb{X_n}$ by (C.31) and $\ex{X_n} = n$ by part (a), it suffices to observe
 \[
-\ex[2]{X_0} = 0
+\exf^2\ofb{X_0} = 0
 \]
 and evaluate
 \[
 \begin{array}{lll}
-\ex[2]{X_n} & = & \ds{\sum_{s \in \cartpwr{\sete{0, 1}}{n}} (100i(s))^2 \multp \pr{A_s}} \cr
+\exf^2\ofb{X_n} & = & \ds{\sum_{s \in \cartpwr{\sete{0, 1}}{n}} (100i(s))^2 \multp \pr{A_s}} \cr
             & = & \ds{\sum_{s \in \cartpwr{\sete{0, 1}}{n - 1}} ((100i(s1))^2 \multp \pr{A_{s1}} + (100i(s0))^2 \multp \pr{A_{s0}})} \cr
             & = & \ex{X_{n - 1}^2} + 2 \ex{X_{n - 1}} + 100 \cr
 \end{array}
@@ -267,6 +267,42 @@ by (C.44). Either way, we get $\var{X_n} = 99n$.
 \li \Until $\id{num-elements-examined} \isequal n$
 \li print ``not found''
 \end{codebox}
+%%
+\item If there is exactly one index $i$ such that $A[i] = x$, then
+\[
+\pr{\mathtext{the procedure \mathmode{\proc{Random}(1, n)} picks the index \mathmode{i} into \mathmode{A} such that \mathmode{A[i] = x}}} = \frac{1}{n}.
+\]
+Let $X$ be the number of indices into $A$ that must be picked before $x$ is found and $\proc{Random-Search}$ terminates. It follows that $\pr{X = r} = q^{r - 1}p$ is a geometric distribution, where $p = 1/n$ and $q = 1 - p$. Therefore, $\ex{X} = 1/p = n$.
+%%
+\item In this case, we have
+\[
+\pr{\mathtext{the procedure \mathmode{\proc{Random}(1, n)} picks the index \mathmode{i} into \mathmode{A} such that \mathmode{A[i] = x}}} = \frac{k}{n}.
+\]
+The probability $\pr{X = r} = q^{r - 1}p$ is a geometric distribution with $p = k/n$ and $q = 1 - p$. Thus, $\ex{X} = 1/p = n/k$.
+%%
+\item If there are no indices $i$ such that $A[i] = x$, then the case is the same as the third question in 5.4.2 (balls and bins) in textbook, i.e., the \emph{coupon collector's problem}. Let $X$ be the number of indices into $A$ that must be picked before all elements of $A$ have been checked and $\proc{Random-Search}$ terminates. Then, it follows that $\ex{X} = n(\ln n + \bigoh{1})$.
+%%
+\item Let $X$ be the index such that $A[X] = x$ (equivalently, the number of indices into $A$ that must be checked before $x$ is found). Then, we have $1 \leq X \leq n$ and, by the assumption that all possible permutations of the input array are equally likely, that
+\[
+\pr{X = i} = \frac{1}{n}.
+\]
+Hence,
+\[
+\ex{X} = \sum^n_{i = 1} i \multp \pr{X = i} = \frac{n + 1}{2}
+\]
+and the average-case running time of $\proc{Deterministic-Search}$ is $\bigtheta{\ex{X}} = \bigtheta{n}$. Its worst-case running time is $\bigtheta{n}$.
+%%
+\item Let $X$ be the index such that $A[X] = x$ and $A[j] \neq x$ for all $j < X$ (equivalently, the number of indices into $A$ that must be checked before $x$ is found). Then, we have $1 \leq X \leq n - k + 1$ and, by the assumption that all possible permutations of the input array are equally likely, that
+\[
+\pr{X = i} = \frac{{n - i \choose k - 1}}{\sum^{n - k + 1}_{j = 1} {n - j \choose k - 1}}.
+\]
+The average-case running time of $\proc{Deterministic-Search}$ in this case is $\bigtheta{\ex{X}}$. Its worst-case running time is $\bigtheta{n - k + 1} = \bigtheta{n - k}$.
+%%
+\item Both average-case and worst-case running times are $\bigtheta{n}$.
+%%
+\item Besides the time spent on randomly permuting the input array,\footnote{The procedure $\proc{Randomly-Permute}$ on page 136 of the textbook obviously takes $\bigtheta{n}$ time.} the worst-case and expected running times of $\proc{Scramble-Search}$ for the cases $k = 0$, $k = 1$ and $k \geq 1$ in general are the same as the average-case and worst-case running times of $\proc{Deterministic-Search}$ given in parts (g), (e) and (f), respectively.
+%%
+\item The procedure $\proc{Random-Search}$ exhibits the worst-case running time $\bigtheta{n \lg n}$, which is worse than the other two. The average-case and worst-case running times of $\proc{Deterministic-Search}$ are the same as the expected and worst-case running times of $\proc{Scramble-Search}$ (except for the latter's cost incurred by doing random permutation of the input array, which is negligible asymptotically), based on the assumption that \emph{all the possible permutations of the input array are equally likely}, i.e., the permutations conform to the \emph{uniform distribution}, whereas the procedure $\proc{Scramble-Search}$ enforces such a distribution by randomization so that no particular case of the input generates the worst-case behavior. Therefore, I would choose $\proc{Scramble-Search}$ except when some prior knowledge of the distribution of the input array is known to be in favor of $\proc{Deterministic-Search}$.
 %%
 \end{enumerate}
 %
