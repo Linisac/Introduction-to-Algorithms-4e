@@ -32,6 +32,7 @@
 \newcommand{\defas}{\colonequals} %defined as
 %%Mathematical constants
 \newcommand{\e}{\mathit{e}} %Euler's number
+\newcommand{\dummy}{\cdot} %dummy argument
 %%Enumeration, sequence, chain and serial
 \newcommand{\seqe}[2]{\left\langle\enum{#1}{#2}\right\rangle} %sequence by enumeration: \seq{a}{n} \gives \langle a_1, a_2, \ldots, a_n \rangle
 \newcommand{\etl}{\ldots} %etc, lower
@@ -40,8 +41,8 @@
 %%Mathematical operators notations
 \newcommand{\multp}{\cdot} %multiplication
 %%Integer functions
-\newcommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
-\newcommand{\ceil}[1]{\left\lceil #1 \right\rceil}
+\newcommand{\floor}[1]{\left\lfloor#1\right\rfloor}
+\newcommand{\ceil}[1]{\left\lceil#1\right\rceil}
 %%Asymptotic functions notations
 \newcommand{\bigohf}{\mathit{O}} %big oh function symbol
 \newcommand{\bigoh}[1]{\bigohf\of{#1}} %asymptotic big oh
@@ -102,7 +103,8 @@
 %\textsc{\Large - Annotations and Solutions Manual -}
 %\\
 %\\
-\input{5}
+%\input{5}
+\input{6}
 \begin{appendices}
 %\input{c}
 \end{appendices}

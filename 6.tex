@@ -1,0 +1,49 @@
+\setcounter{chapter}{5}
+\chapter{Heapsort}
+%Section 6.1------------------------------------------------------------------------------------------------------------
+\section{Heaps}
+\subsection*{Exercises}
+\begin{enumerate}[\thesection-1]
+%
+\item A heap of height $h$ has at least $2^h$ and at most $2^{h + 1} - 1$ nodes, respectively.
+%
+\item If a heap have size $n$, then\\
+\begin{tabular}{lll}
+    & its height is $h$ & \cr
+iff & $2^h \leq n \leq 2^{h + 1} - 1$ & (by \thesection-1) \cr
+iff & $2^h \leq n < 2^{h + 1}$ & (since $n$ is an integer) \cr
+iff & $h \leq \lg n < h + 1$ & (since $\lg$ is a strictly increasing function) \cr
+iff & $h = \floor{\lg n}$ & (by definition of $\floor{\dummy}$). \cr
+\end{tabular}
+%
+\item View a max-heap as a nearly complete binary tree and prove the statement by induction on the structure of a max-heap, using the max-heap property.
+%
+\item Among the leaves (by the max-heap property).
+%
+\item Skipped.
+%
+\item The answer is yes, as can be seen next. Let $A$ be an array with $\attrib{A}{heap-size} = \attrib{A}{length} = n$. Then,\\
+\begin{tabular}{ll}
+     & $A$ is in sorted order \cr
+iff  & for all indices $1 \leq i, j \leq n$, it holds that $i < j$ implies $A[i] \leq A[j]$ \cr
+then & for all indices $1 < i \leq n$, it holds that $A[\proc{Parent}(i)] \leq A[i]$ \cr
+     & (since $\proc{Parent}(i) = \floor{i/2} < i$ for all such $i$) \cr
+iff  & $A$ satisfies the min-heap property \cr
+iff  & $A$ is a min-heap. \cr
+\end{tabular}
+%
+\setcounter{enumi}{7}
+%
+\item Note that \emph{if a node in the heap has no left child, then it has no right child} and that a node with index $i$ has no left child precisely when $\proc{Left}(i) > n$.
+%
+\end{enumerate}
+%End of Section 6.1-----------------------------------------------------------------------------------------------------
+
+
+%Problems of Chapter 6--------------------------------------------------------------------------------------------------
+\section*{Problems}
+\begin{enumerate}[\thechapter-1]
+%
+\item a
+%
+\end{enumerate}
