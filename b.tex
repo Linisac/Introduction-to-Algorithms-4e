@@ -1,0 +1,134 @@
+\setcounter{chapter}{1}
+\chapter{Sets, Etc.}
+%Section B.1------------------------------------------------------------------------------------------------------------
+\section{Sets}
+\subsection*{Exercises}
+\begin{enumerate}[\thesection-1]
+%
+\setcounter{enumi}{1}
+%
+\item Use induction on $n$ and observe, for example, that $A_1 \intsc A_2 \intsc \etc \intsc A_n \intsc A_{n + 1} = (A_1 \intsc A_2 \intsc \etc \intsc A_n) \intsc A_{n + 1}$.
+%
+\item Use induction on $n$ to prove the statement: \emph{For all sets $A_1, A_2, \etl, A_n$, it holds that
+\[
+\begin{array}{lll}
+\card{A_1 \union A_2 \union \etc \union A_n} & = & \phantom{+} \card{A_1} + \card{A_2} + \etc + \card{A_n} \cr
+ & & - \card{A_1 \intsc A_2} - \card{A_1 \intsc A_3} - \etc \cr
+ & & + \card{A_1 \intsc A_2 \intsc A_3} + \etc \cr
+ & & \multicolumn{1}{c}{\etv} \cr
+ & & + (-1)^{n - 1} \card{A_1 \intsc A_2 \intsc \etc \intsc A_n}. \cr
+\end{array}
+\]}And observe that $A_1 \union A_2 \union \etc \union A_n \union A_{n + 1} = (A_1 \union A_2 \union \etc \union A_n) \union A_{n + 1}$.
+
+Alternatively, argue that for every element $a \in A_1 \union A_2 \union \etc \union A_n$, it holds that $a$ is counted exactly once on the right-hand side. More specifically, if $a \in A_{i_1} \intsc A_{i_2} \intsc \etc \intsc A_{i_k}$ for $1 \leq i_1 < i_2 < \etc < i_k \leq n$, then the occurrences of $a$ on the right-hand side are counted up by $1$ for each of $\card{A_{i_1}}, \card{A_{i_2}}, \etl, \card{A_{i_k}}$, and are counted down by $1$ for each of $\card{A_{i_1} \intsc A_{i_2}}, \card{A_{i_1} \intsc A_{i_3}}, \etl$, and so on (and note that ${k \choose 1} - {k \choose 2} + \etc + (-1)^{k - 2 \multp \floor{k / 2} + 1} {k \choose k} = {k \choose 0} = 1$).
+%
+\end{enumerate}
+%End of Section B.1-----------------------------------------------------------------------------------------------------
+
+%Section B.2------------------------------------------------------------------------------------------------------------
+\section{Relations}
+\subsection*{Exercises}
+\begin{enumerate}[\thesection-1]
+%
+\setcounter{enumi}{4}
+%
+\item No. The empty relation $R = \emptyset$ is symmetric and transitive but not reflexive.
+%
+\end{enumerate}
+%End of Section B.2-----------------------------------------------------------------------------------------------------
+
+%Section B.3------------------------------------------------------------------------------------------------------------
+\section{Functions}
+\subsection*{Exercises}
+\begin{enumerate}[\thesection-1]
+%
+\item
+\begin{enumerate}[(a)]
+%%
+\item Since $f(A) \subseteq B$, we have $\card{f(A)} \leq \card{B}$. If $f$ is injective, then $\card{A} = \card{f(A)}$ and hence $\card{A} \leq \card{B}$.
+%%
+\item If $f$ is surjective, then $\setm{f^\circ(b)}{b \in B}$ forms a partition of $A$, where $f^\circ(b) = \setm{a \in A}{f(a) = b}$ denotes the \emph{preimage} of $b$ under $f$. Thus,
+\[
+\begin{array}{llll}
+\card{A} & =    & \ds{\sum\limits_{b \in B} \card{f^\circ(b)}} & \mathtext{(since the sets \mathmode{f^\circ(b)} are pairwise disjoint and their union is \mathmode{A})} \cr
+         & \geq & \ds{\sum\limits_{b \in B} 1} & \mathtext{(since the sets \mathmode{f^\circ(b)} are nonempty)} \cr
+         & =    & \card{B}. & \cr
+\end{array}
+\]
+%%
+\end{enumerate}
+%
+\setcounter{enumi}{2}
+%
+\item Let the inverse of a binary relation $R$ be defined by $\inv{R} = \setm{(b, a)}{(a, b) \in R}$.
+%
+\item The function $\inv{f} \cmps g \cmps f$ ($\cmps$ denotes \emph{functional composition}) is a bijection from $\zah$ to $\zah \cart \zah$, where
+\[
+f: \nat \to \zah, f(n) = (-1)^n \ceil{n/2}
+\]
+and
+\[
+\inv{f}: \zah \to \nat, f(m) =
+\begin{cases}
+2m      & \mathtext{if \mathmode{m \geq 0}}, \cr
+-2m - 1 & \mathtext{if \mathmode{m < 0}} \cr
+\end{cases}
+\]
+are the two bijections given in textbook, and where the bijection $g : \nat \to \nat \cart \nat$ is defined by
+\[
+g(m, n) = \frac{1}{2}(m + n)(m + n + 1) + m.
+\]
+%
+\end{enumerate}
+%End of Section B.3-----------------------------------------------------------------------------------------------------
+
+%Section B.4------------------------------------------------------------------------------------------------------------
+\section{Functions}
+\subsection*{Exercises}
+\begin{enumerate}[\thesection-1]
+%
+\item Every edge $(u, v)$ is counted twice on the left-hand side term: Once for $u$ and once for $v$.
+%
+\item A non-simple path (cycle) contains a vertex that occurs at least twice.
+%
+\item Use induction on the number of vertices $\card{V}$. In the inductive step, consider a distinguished vertex $v$ and the graph induced by $V - \sete{v}$.
+%
+\item Verification part skipped. Reflexivity and transitivity hold in the case of directed graphs.
+%
+\item Skipped.
+%
+\item Two vertices $u$ and $v$ are adjacent via a hyperedge if and only if they are adjacent to the same vertex representing this hyperedge in the corresponding bipartite graph.
+%
+\end{enumerate}
+%End of Section B.4-----------------------------------------------------------------------------------------------------
+
+%Section B.5------------------------------------------------------------------------------------------------------------
+\section{Functions}
+\subsection*{Exercises}
+\begin{enumerate}[\thesection-1]
+%
+\item Skipped.
+%
+\item Attempted.
+%
+\item Skipped.
+%
+\item Skipped.
+%
+\item Attempted.
+%
+\item Attempted.
+%
+\item Attempted.
+%
+\end{enumerate}
+%End of Section B.5-----------------------------------------------------------------------------------------------------
+
+%Problems of Appendix B-------------------------------------------------------------------------------------------------
+\section*{Problems}
+\begin{enumerate}[\thechapter-1]
+%
+\item Skipped.
+%
+\end{enumerate}
+%End of Problems of Appendix B------------------------------------------------------------------------------------------
