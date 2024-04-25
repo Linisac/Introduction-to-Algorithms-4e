@@ -10,6 +10,7 @@
 \usepackage{enumerate}
 \usepackage{paralist}
 \usepackage{colonequals}
+\usepackage{hyperref}
 \usepackage{ifthen}
 \usepackage{appendix}
 \usepackage[margin=1.5cm]{geometry}
@@ -34,26 +35,27 @@
 \newcommand{\e}{\mathit{e}} %Euler's number
 \newcommand{\dummy}{\cdot} %dummy argument
 %%Enumeration, sequence, chain and serial
-\newcommand{\seqe}[2]{\left\langle\enum{#1}{#2}\right\rangle} %sequence by enumeration: \seq{a}{n} \gives \langle a_1, a_2, \ldots, a_n \rangle
+\newcommand{\seqe}[1]{\left\langle#1\right\rangle} %sequence by enumeration: \seqe{1, 2, 3} gives \langle 1, 2, 3 \rangle
 \newcommand{\etl}{\ldots} %etc, lower
 \newcommand{\etc}{\cdots} %etc, centered
 \newcommand{\etv}{\vdots} %etc, vertical
 %%Mathematical operators notations
 \newcommand{\multp}{\cdot} %multiplication
 \newcommand{\cmps}{\mathbin{\circ}} %function composition
+\newcommand{\by}{\times} %matrix dimension
 %%Integer functions
 \newcommand{\floor}[1]{\left\lfloor#1\right\rfloor}
 \newcommand{\ceil}[1]{\left\lceil#1\right\rceil}
 %%Asymptotic functions notations
 \newcommand{\bigohf}{\mathit{O}} %big oh function symbol
-\newcommand{\bigoh}[1]{\bigohf\of{#1}} %asymptotic big oh
+\newcommand{\bigoh}[1]{\bigohf\!\of{#1}} %asymptotic big oh
 \newcommand{\littleohf}{\mathit{o}} %little oh function symbol
-\newcommand{\littleoh}[1]{\littleohf\of{#1}} %asymptotic little oh
-\newcommand{\bigtheta}[1]{\Theta\of{#1}} %asymptotic theta
-\newcommand{\bigomega}[1]{\Omega\of{#1}} %asymptotic big omega
-\newcommand{\littleomega}[1]{\omega\of{#1}} %asymptotic little omega
+\newcommand{\littleoh}[1]{\littleohf\!\of{#1}} %asymptotic little oh
+\newcommand{\bigtheta}[1]{\Theta\!\of{#1}} %asymptotic theta
+\newcommand{\bigomega}[1]{\Omega\!\of{#1}} %asymptotic big omega
+\newcommand{\littleomega}[1]{\omega\!\of{#1}} %asymptotic little omega
 %%Set-theoretic notations
-\newcommand{\set}[1]{\ofc{#1}} %prototype of set
+\newcommand{\set}[1]{\curlyf{#1}} %prototype of set
 \newcommand{\sete}{\set} %set by enumeration
 \newcommand{\suchthat}{:}
 \newcommand{\setm}[2]{\set{#1 \suchthat #2}} %set by math description
@@ -71,25 +73,29 @@
 \newcommand{\card}[1]{\left|#1\right|} %cardinality
 \newcommand{\inv}[1]{#1^{-1}} %inverse (of a function)
 %%Probability-theoretic notations
-\newcommand{\ind}[1]{\mathrm{I}\ofc{#1}} %indicator random variable
+\newcommand{\ind}[1]{\mathrm{I}\!\ofc{#1}} %indicator random variable
 \newcommand{\given}{\mid}
-\newcommand{\pr}[1]{\Pr\ofc{#1}} %probability
+\newcommand{\pr}[1]{\Pr\!\ofc{#1}} %probability
 \newcommand{\exf}{\mathrm{E}} %expectation function symbol
-\newcommand{\ex}[1]{\exf\ofb{#1}} %expectation
-\newcommand{\var}[1]{\mathrm{Var}\ofb{#1}} %variation
+\newcommand{\ex}[1]{\exf\!\ofb{#1}} %expectation
+\newcommand{\var}[1]{\mathrm{Var}\!\ofb{#1}} %variation
 \newcommand{\bindist}{\mathit{b}} %binomial distribution
 %%Graph-theoretic notations
-\newcommand{\degree}[1]{\mathrm{degree}\of{#1}}
+\newcommand{\degree}[1]{\mathrm{degree}\!\of{#1}}
 
 %New environment
+\newenvironment{problem}{\begin{description}}{\end{description}} %specification of a computational problem
 \newcommand{\Input}{\item[Input:]} %ingredient of the new environment `problem'
 \newcommand{\Output}{\item[Output:]} %ingredient of the new environment `problem'
-\newenvironment{problem}{\begin{description}}{\end{description}} %specification of a computational problem
 \newenvironment{loopinv}{\begin{quote}}{\end{quote}} %loop invariant
-\newcommand{\Init}{\item[Initialization:]} %ingredient of the new environment `loopinvpf'
-\newcommand{\Main}{\item[Maintenance:]} %ingredient of the new environment `loopinvpf'
-\newcommand{\Term}{\item[Termination:]} %ingredient of the new environment `loopinvpf'
-\newenvironment{loopinvpf}{\begin{description}}{\end{description}} %proof of loop invariant
+\newenvironment{proofloopinv}{\begin{description}}{\end{description}} %proof of loop invariant
+\newcommand{\Init}{\item[Initialization:]} %ingredient of the new environment `proofloopinv'
+\newcommand{\Main}{\item[Maintenance:]} %ingredient of the new environment `proofloopinv'
+\newcommand{\Term}{\item[Termination:]} %ingredient of the new environment `proofloopinv'
+\newenvironment{recurcorr}{\begin{quote}}{\end{quote}} %recursion correctness
+\newenvironment{proofinduct}{\begin{description}}{\end{description}} %proof by induction
+\newcommand{\Basis}{\item[Basis step:]} %ingredient of the new environment `proofinduct'
+\newcommand{\Induct}{\item[Inductive step:]} %ingredient of the new environment `proofinduct'
 \theoremstyle{remark}
 \newtheorem*{remark}{Remark}
 
@@ -105,9 +111,9 @@
 %\\
 %\\
 %\input{5}
-%\input{6}
+\input{6}
 \begin{appendices}
-\input{b}
+%\input{b}
 %\input{c}
 \end{appendices}
-\end{document} 
+\end{document}

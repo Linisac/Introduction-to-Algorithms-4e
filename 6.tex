@@ -5,16 +5,7 @@
 \subsection*{Exercises}
 \begin{enumerate}[\thesection-1]
 %
-\item A heap of height $h$ has at least $2^h$ and at most $2^{h + 1} - 1$ nodes, respectively.
-%
-\item If a heap have size $n$, then\\
-\begin{tabular}{lll}
-    & its height is $h$ & \cr
-iff & $2^h \leq n \leq 2^{h + 1} - 1$ & (by \thesection-1) \cr
-iff & $2^h \leq n < 2^{h + 1}$ & (since $n$ is an integer) \cr
-iff & $h \leq \lg n < h + 1$ & (since $\lg$ is a strictly increasing function) \cr
-iff & $h = \floor{\lg n}$ & (by definition of $\floor{\dummy}$). \cr
-\end{tabular}
+\setcounter{enumi}{2}
 %
 \item View a max-heap as a nearly complete binary tree and prove the statement by induction on the structure of a max-heap, using the max-heap property.
 %
@@ -34,16 +25,432 @@ iff  & $A$ is a min-heap. \cr
 %
 \setcounter{enumi}{7}
 %
-\item Note that \emph{if a node in the heap has no left child, then it has no right child} and that a node with index $i$ has no left child precisely when $\proc{Left}(i) > n$.
+\item Note that \emph{if a node in the heap has no left child, then it has no right child} and that the node with index $i$ has no left child precisely when $\proc{Left}(i) > n$.
 %
 \end{enumerate}
 %End of Section 6.1-----------------------------------------------------------------------------------------------------
+
+
+%Section 6.2------------------------------------------------------------------------------------------------------------
+\section{Maintaining the heap property}
+\subsection*{Note}
+\begin{enumerate}
+%
+\item We can argue the correctness of the procedure $\proc{Max-Heapify}(A, i)$ on page 165 using an analogous method to stating a loop invariant and proving it holds. More precisely, we make the statement below for this procedure, a so-called \textbf{\textit{recursion correctness}}.
+\begin{recurcorr}
+After performing $\proc{Max-Heapify}(A, i)$, the binary tree rooted at node $i$ becomes a max-heap, provided that the subtrees rooted at the children of node $i$ (if any) were already max-heaps themselves prior to executing $\proc{Max-Heapify}(A, i)$.
+\end{recurcorr}
+Then, we prove the above statement by induction, which involves the \textbf{\textit{basis step}} and the \textbf{\textit{inductive step}} and, together with the \textbf{\textit{termination}} part (it guarantees the procedure always terminates), implies the correctness of the procedure.
+\begin{proofinduct}
+%
+\Basis If node $i$ is a leaf, then the binary tree rooted at node $i$ is already a max-heap and executing $\proc{Max-Heapify}(A, i)$ leaves this single-node max-heap unchanged.
+%
+\Induct Assume that node $i$ is not a leaf, that is, it has a left child and may have a right child, and that the subtree(s) rooted at the child(ren) are already max-heaps. If $\id{largest}$ is equal to $i$ at line 8 in the procedure $\proc{Max-Heapify}(A, i)$, then the binary tree rooted at node $i$ is already a max-heap and no change is made by this procedure. Otherwise, line 9 exchanges $A[i]$ and $A[\id{largest}]$ so as to fix the violation(s) of max-heap property among $A[i]$, $A[\proc{Left}(i)]$ and $A[\proc{Right}(i)]$. Suppose that $\id{largest}$ is equal to $\proc{Left}(i)$ at line 8, then by the assumption that the subtree rooted at node $\proc{Left}(i)$ is a max-heap (which means that the subtree(s) rooted at the child(ren) of $\proc{Left}(i)$, if any, are max-heaps as well), performing $\proc{Max-Heapify}(A, \id{largest})$ results in the subtree rooted at node $\proc{Left}(i)$ becoming a max-heap, by induction hypothesis, and consequently, the entire binary tree rooted at node $i$ becomes a max-heap because every node occurring in the subtree rooted at node $\proc{Left}(i)$ has value no greater than that of node $i$; the other case, where $\id{largest}$ is equal to $\proc{Right}(i)$, can be argued analogously and hence is omitted. Therefore, when $\proc{Max-Heapify}(A, i)$ is done, the binary tree rooted at node $i$ is a max-heap.
+%
+\Term If node $i$ is a leaf, then $\proc{Max-Heapify}(A, i)$ immediately terminates, without making any changes to $A$. Otherwise, the procedure may recursively call $\proc{Max-Heapify}(A, \id{largest})$ on line 3; the second argument in each recursive call gets larger and larger, and it eventually arrives at a node that is a leaf. Therefore, the procedure always terminates.
+%
+\end{proofinduct}
+\begin{remark}
+The recursion correctness establishes the correctness of a procedure in a way slightly different than does loop invariant. If we use $\bullet$ for the correctness statement and $\circ$ for the invariant statement, then both methods can be visualized below:
+\begin{center}
+\begin{tabular}{c}
+\begin{tabular}{cccc}
+             & $\bullet$ &           &           \cr
+             & $\bullet$ & $\bullet$ &           \cr
+             & $\bullet$ & $\bullet$ & $\bullet$ \cr\hline
+$\therefore$ &           &           & $\bullet$ \cr
+\end{tabular}
+\cr
+recursion correctness \cr
+\end{tabular}
+\hspace{5em}
+\begin{tabular}{c}
+\begin{tabular}{cccc}
+             & $\circ$ &         &           \cr
+             &         & $\circ$ &           \cr
+             &         &         & $\circ$   \cr\hline
+$\therefore$ &         &         & $\bullet$ \cr
+\end{tabular}
+\cr
+loop invariant \cr
+\end{tabular}
+\end{center}
+\end{remark}
+%
+\end{enumerate}
+\subsection*{Exercises}
+\begin{enumerate}[\thesection-1]
+%
+\setcounter{enumi}{1}
+%
+\item For heaps of a fixed height $\geq 2$ and of increasing size, the ratio of the size of the subtree located at the left child of the root to the size of the entire tree goes from $1/2$ up to slightly less than $2/3$, when the bottom-most level is exactly half full, and then the ratio goes down to slightly less than $1/2$; in contrast, the corresponding ratio for the subtree located at the right child of the root goes from slightly less than $1/2$ down to slightly less than $1/3$, and then up to slightly less than $1/2$.
+%
+\setcounter{enumi}{5}
+%
+\item The efficient procedure using iterative control construct (a while-loop) is given below.
+\begin{codebox}
+\Procname{$\proc{Max-Heapify}'(A, i)$}
+\li \While $\proc{Left}(i) \leq \attrib{A}{heap-size}$
+\li        \Do
+               $l \gets \proc{Left}(i)$
+\li            $r \gets \proc{Right}(i)$
+\li            \If $A[l] > A[i]$
+\li                \Then
+                         $\id{largest} \gets l$
+\li                \Else
+                         $\id{largest} \gets i$
+               \End
+\li            \If $r \leq \attrib{A}{heap-size}$ and $A[r] > A[\id{largest}]$
+\li                \Then
+                         $\id{largest} \gets r$
+               \End
+\li            \If $\id{largest} \neq i$
+\li                \Then
+                         exchange $A[i]$ with $A[\id{largest}]$
+\li                      $i \gets \id{largest}$
+               \End
+           \End
+\end{codebox}
+%
+\item Let $T'(n)$ be the worst-case running time of $\proc{Max-Heapify}$ performed on the root at a tree of size $n \geq 3$, then
+\[
+T'(n) \geq T'(\alpha n) + \bigtheta{1}
+\]
+for some $\alpha$ such that $1/5 \leq \alpha < 1/3$, if the smallest node value occurs at the root, since the subtree located at each child has size at least $\alpha n$.
+%
+\end{enumerate}
+%End of Section 6.2-----------------------------------------------------------------------------------------------------
+
+
+%Section 6.3------------------------------------------------------------------------------------------------------------
+\section{Building a heap}
+\subsection*{Notes}
+\begin{enumerate}[1.]
+%
+\item Line 16 on page 169 and Exercise 6.3-2: Change the inequality $\ceil{n/2^{h + 1}} \geq 1/2$ to $n/2^{h + 1} \geq 1/2$.
+%
+\end{enumerate}
+
+\subsection*{Exercises}
+\begin{enumerate}[\thesection-1]
+%
+\setcounter{enumi}{2}
+%
+\item Consider the associated loop invariant, which does not necessarily hold if the loop index $i$ increases from $1$ to $\floor{n/2}$ rather than decreases from $\floor{n/2}$ to $1$: Let $A = \seqe{1, 2, 3, 4, 5, 6, 7}$.
+%
+\item Fix $n$. It suffices to show by induction on $h$ that \emph{for all $h \geq 0$, the nodes of height $h$ in an $n$-element heap have indices that are exactly those $i$ such that $n/2^{h + 1} < i \leq n/2^h$}. The base case $h = 0$ has been done in Exercise 6.1-8. For the inductive case, note that \emph{a node of index $i$ has height $h + 1$ precisely when its left child, whose index is $\proc{Left}(i) = 2i$, has height $h$}.
+
+Thus, the nodes of height $h$ in an $n$-element heap are precisely those of indices $i$ such that $\floor{n/2^{h + 1}} + 1 \leq i \leq \floor{n/2^h}$, and hence the number of such nodes is
+\[
+\floor{n/2^h} - \floor{n/2^{h + 1}} = \floor{n/2^h} - \floor{\floor{n/2^h} / 2} = \ceil{\floor{n/2^h} / 2} \leq \ceil{\ceil{n/2^h} / 2} = \ceil{n/2^{h + 1}},
+\]
+where the first and the third equalities follow from (3.6) and (3.5) in textbook (page 64).
+%
+\end{enumerate}
+%End of Section 6.3-----------------------------------------------------------------------------------------------------
+
+
+%Section 6.4------------------------------------------------------------------------------------------------------------
+\section{The heapsort algorithm}
+\subsection*{Notes}
+\begin{enumerate}[1.]
+%
+\item Line 2 of the procedure $\proc{Max-Heap-Extract-Max}$ on page 175 should be followed by an operation of mapping the object $A[\attrib{A}{heap-size}]$ to index $1$ in the array, as in line 7 of $\proc{Max-Heap-Insert}$ on page 176.
+%
+\item The procedure $\proc{Max-Heap-Insert}(A, x, n)$ on page 176, where $n$ is the size of the input array $A$, does not match the specification of $\proc{Insert}(S, x, k)$ on page 173, where $k$ is the key to be assigned to the input element $x$.
+%
+\end{enumerate}
+
+\subsection*{Exercises}
+\begin{enumerate}[\thesection-1]
+%
+\setcounter{enumi}{2}
+%
+\item Skipped.
+%
+\item Skipped.
+%
+\item Skipped.
+%
+\end{enumerate}
+%End of Section 6.4-----------------------------------------------------------------------------------------------------
+
+
+%Section 6.5------------------------------------------------------------------------------------------------------------
+\section{Priority queues}
+\subsection*{Exercises}
+\begin{enumerate}[\thesection-1]
+%
+\setcounter{enumi}{3}
+%
+\item The pseudocode is given below.
+\begin{codebox}
+\Procname{$\proc{Max-Heap-Decrease-Key}(A, x, k)$}
+\li \If $k > \attrib{x}{key}$
+\li \Then
+              \Error ``new key is greater than current key''
+    \End
+\li $\attrib{x}{key} \gets k$
+\li find the index $i$ in array $A$ where objects $x$ occurs
+\li $\proc{Max-Heapify}(A, i)$
+\end{codebox}
+
+In addition to the overhead of locating the index $i$ into the array $A$ for the object $x$ in line 4, the running time of this procedure is $\bigoh{h}$ incurred by $\proc{Max-Heapify}(A, i)$ in line 5, where $h$ is the height of $A[i]$ in the corresponding max-heap, and hence is $\bigoh{\lg n}$ because $h \leq \lg n$, where $n$ is the length of $A$.
+%
+\item The procedure $\proc{Max-Heap-Insert}$ relies on the invocation of $\proc{Max-Heap-Increase-Key}$ in line 8 to move the newly inserted object $x$ to an appropriate position in the max-heap $A$ (``appropriate'' in the sense that the max-heap property holds); note that there may be an implicit assumption that the input array is a valid max-heap, i.e., the max-heap property holds for $A$, for invoking $\proc{Max-Heap-Increase-Key}$. By setting $\attrib{x}{key}$ to $-\infty$ in line 5, the array $A$ is a valid max-heap prior to line 8.
+%
+\item Let $i$ be the index into the array $A$ for the object $x$ as in line 4 of $\proc{Max-Heap-Increase-Key}(A, x, k)$. The subtree rooted at $A[i] = x$ remains a max-heap after line 4. However, the entire array $A$ may not be a max-heap due to a possible violation of the max-heap property between $A[i]$ and its parent, i.e., it may be the case that $\attrib{A[\proc{Parent}(i)]}{key} < \attrib{A[i]}{key}$; replacing the $\kw{while}$ loop of lines 5--7 by
+\begin{codebox}
+\setlinenumberplus{}{5}
+\li $\proc{Max-Heapify}(A, i)$
+\end{codebox}
+does not help fix this violation, as it only fixes the violation of max-heap property between $A[i]$ and its \emph{children} and propagates \emph{downward}.
+%
+\setcounter{enumi}{7}
+%
+\item Replace lines 5--7 in $\proc{Max-Heap-Increase-Key}$ with the following piece of pseudocode:
+\begin{codebox}
+\setlinenumberplus{}{5}
+\li \While $i > 1$ and $\attrib{A[\proc{Parent}(i)]}{key} < \attrib{A[i]}{key}$
+\li \Do
+         $A[i] \gets A[\proc{Parent}(i)]$, updating the information that maps
+\zi      priority queue objects to array indices
+\li      $i \gets \proc{Parent}(i)$
+    \End
+\li $A[i] \gets x$
+\end{codebox}
+%
+\item Assume that a min- or max-priority queue $P$ also supports the operation $\proc{Empty}(P)$ that returns $\const{true}$ if $P$ contains no elements and $\const{false}$ otherwise, and that it has an associated attribute $\attrib{P}{time-stamp}$ such that $\attrib{P}{time-stamp}$ is initially set to $0$ when the priority queue $P$ is created and $\attrib{P}{time-stamp}$ gets incremented by $1$ each time a new element is inserted into $P$.
+
+A first-in first-out queue can be implemented by a min-priority queue $P$ as follows.
+\begin{codebox}
+\Procname{$\proc{Min-PQ-Queue-Empty}(P)$}
+\li \Return $\proc{Empty}(P)$
+\end{codebox}
+
+\begin{codebox}
+\Procname{$\proc{Min-PQ-Enqueue}(P, x)$}
+\li $\attrib{P}{time-stamp} \gets \attrib{P}{time-stamp} + 1$
+\li $\proc{Insert}(P, x, \attrib{P}{time-stamp})$
+\end{codebox}
+
+\begin{codebox}
+\Procname{$\proc{Min-PQ-Dequeue}(P)$}
+\li \If $\proc{Min-PQ-Queue-Empty}(P) \isequal \const{true}$
+\li \Then
+          \Error ``underflow''
+    \End
+\li \Return $\proc{Extract-Min}(P)$
+\end{codebox}
+If the min-priority queue $P$ (of $n$ elements) is implemented by a min-heap, then the running times of the three procedures are $\bigtheta{1}$, $\bigtheta{1}$ and $\bigtheta{\lg n}$, respectively.
+
+A stack can be implemented by a max-priority queue $P$ as follows.
+\begin{codebox}
+\Procname{$\proc{Max-PQ-Stack-Empty}(P)$}
+\li \Return $\proc{Empty}(P)$
+\end{codebox}
+
+\begin{codebox}
+\Procname{$\proc{Max-PQ-Push}(P, x)$}
+\li $\attrib{P}{time-stamp} \gets \attrib{P}{time-stamp} + 1$
+\li $\proc{Insert}(P, x, \attrib{P}{time-stamp})$
+\end{codebox}
+
+\begin{codebox}
+\Procname{$\proc{Max-PQ-Pop}(P)$}
+\li \If $\proc{Max-PQ-Stack-Empty}(P) \isequal \const{true}$
+\li \Then
+          \Error ``underflow''
+    \End
+\li \Return $\proc{Extract-Max}(P)$
+\end{codebox}
+If the max-priority queue $P$ is implemented by a max-heap, then the running times of the three procedures are $\bigtheta{1}$, $\bigtheta{\lg n}$ and $\bigtheta{\lg n}$, respectively.
+%
+\item The procedure is given below.
+\begin{codebox}
+\Procname{$\proc{Max-Heap-Delete}(A, x)$}
+\li $k \gets \attrib{x}{key}$
+\li $\proc{Max-Heap-Increase-Key}(A, x, \infty)$ \Comment{$A[1]$ is equal to $x$ now}
+\li $A[1] \gets A[\attrib{A}{heap-size}]$, map the object $A[\attrib{A}{heap-size}]$ to index $1$ in the array \label{li:after-increase-key}
+\li $\attrib{A}{heap-size} \gets \attrib{A}{heap-size} - 1$
+\li $\proc{Max-Heapify}(A, 1)$ \label{li:before-restore-key}
+\li $\attrib{x}{key} \gets k$
+\end{codebox}
+Note that lines \ref{li:after-increase-key}--\ref{li:before-restore-key} are the same as lines 2--4 in $\proc{Max-Heap-Extract-Max}(A)$ on page 175.
+%
+\item In the following procedure, assume that the input $L$ is a list of sorted lists $L[j]$ and the output is a sorted array $A$ resulting from merging all these sorted lists. The array $I$ has length equal to $\attrib{L}{length}$, and for all $1 \leq j \leq \attrib{L}{length}$, the value $I[j]$ is an index into the sorted list $L[j]$ such that $L[j][I[j]]$ is the (only) element of $L[j]$ currently stored in the min-priority queue $P$ (implemented by a min-heap); when $I[j] > \attrib{L[j]}{length}$, there is no element of $L[j]$ currently stored in $P$. The procedure $\proc{Min-Heap-Insert}'(P, j, t)$ acts the same as $\proc{Min-Heap-Insert}$ except that an object $x$ is created with attributes $\attrib{x}{source}$ set to $j$ and $\attrib{x}{key}$ set to $t$ (which indicates that $\attrib{x}{key}$ is from the sorted list $L[\attrib{x}{source}]$) before $x$ is inserted into the min-heap $P$ (which follows the same steps as in $\proc{Min-Heap-Insert}$).
+\begin{codebox}
+\Procname{$\proc{Multiway-Merge}(L)$}
+\li $k \gets \attrib{L}{length}$
+\li $n \gets 0$
+\li \For $j \gets 1$ \To $k$
+\li \Do
+         $n \gets n + \attrib{L[j]}{length}$
+    \End
+\li create an empty array $A$ of length $n$
+\li create an empty min-priority queue $P$ \Comment{$P$ is implemented as a min-heap}
+\li create an empty array $I$ of length $k$
+\li \For $j \gets 1$ \To $k$
+\li \Do
+         $I[j] \gets 1$
+\li      $\proc{Min-Heap-Insert}'(P, j, L[j][I[j]])$
+    \End
+\li \For $i \gets 1$ \To $n$
+\li \Do  
+         $x \gets \proc{Min-Heap-Extract-Min}(P)$
+\li      $A[i] \gets \attrib{x}{key}$
+\li      $j \gets \attrib{x}{source}$
+\li      $I[j] \gets I[j] + 1$
+\li      \If $I[j] \leq \attrib{L[j]}{length}$
+\li      \Do
+              $\proc{Min-Heap-Insert}'(P, j, L[j][I[j]])$
+         \End
+    \End
+\li \Return $A$
+\end{codebox}
+%
+\end{enumerate}
+%End of Section 6.5-----------------------------------------------------------------------------------------------------
 
 
 %Problems of Chapter 6--------------------------------------------------------------------------------------------------
 \section*{Problems}
 \begin{enumerate}[\thechapter-1]
 %
-\item a
+\item
+\begin{enumerate}[(a)]
+%%
+\item Consider the input array $A = \seqe{1, 2, 3}$. Running $\proc{Build-Max-Heap}(A, 3)$ and $\proc{Build-Max-Heap}'(A, 3)$ result in different arrays, $\seqe{3, 2, 1}$ and $\seqe{3, 1, 2}$, respectively.
+%%
+\item Consider an input array $A$ of length $n$ in sorted order. After the first $n/2$ elements in $A$ were inserted into a max-heap (having heights $\bigtheta{\lg n}$), for each of the remaining $n/2$ elements, the operation $\proc{Max-Heap-Insert}$ in line $3$ runs in $\bigtheta{\lg n}$ time, resulting in the total running time of $\bigtheta{n \lg n}$ for $\proc{Build-Max-Heap}'(A, n)$.
+%%
+\end{enumerate}
+%
+\setcounter{enumi}{2}
+%
+\item Analogous to the max-heap and min-heap properties, let us define the \textbf{\textit{Young-tableau property}} as follows:
+\begin{quote}
+Let $m$ and $n$ be the numbers of rows and columns, respectively, in the Young tableau $Y$. For $1 \leq i < m$ and $1 \leq j \leq n$, it holds that $Y[i, j] \leq Y[i + 1, j]$. For $1 \leq i \leq m$ and $1 \leq j < n$, it holds that $Y[i, j] \leq Y[i, j + 1]$.
+\end{quote}
+\begin{enumerate}[(a)]
+%%
+\setcounter{enumii}{1}
+%%
+\item Straight from definition. Note that both implications `if' actually go bidirectionally, `if and only if.'
+%%
+\item Assume that the input Young tableau $Y$ has two associated attributes, $\attrib{Y}{row-size}$ and $\attrib{Y}{col-size}$, that indicate its numbers of rows and columns, respectively. The following procedure extracts the minimum element of the Young tableau consisting of the elements $y_{ij}$ where $p \leq i \leq \attrib{Y}{row-size}$ and $q \leq j \leq \attrib{Y}{col-size}$, so that a call to $\proc{Extract-Min}(Y, 1, 1)$ extracts the minimum of the entire Young tableau $Y$.
+\begin{codebox}
+\Procname{$\proc{Extract-Min}(Y, p, q)$}
+\li \If $p > \attrib{Y}{row-size}$ or $q > \attrib{Y}{col-size}$
+\li \Then
+          \Error ``out of bound''
+    \End
+\li $\id{min} \gets Y[p, q]$
+\li \If $p \isequal \attrib{Y}{row-size}$
+\li \Then
+          \If $q \isequal \attrib{Y}{col-size}$
+\li       \Then
+                $\id{new-min} \gets \infty$
+\li       \Else $\id{new-min} \gets \proc{Extract-Min}(Y, p, q + 1)$
+          \End
+\li \Else
+\li       \If $q \isequal \attrib{Y}{col-size}$
+\li       \Then
+                $\id{new-min} \gets \proc{Extract-Min}(Y, p + 1, q)$
+\li       \Else
+\li             \If $Y[p + 1, q] \leq Y[p, q + 1]$
+\li             \Then
+                      $\id{new-min} \gets \proc{Extract-Min}(Y, p + 1, q)$
+\li             \Else $\id{new-min} \gets \proc{Extract-Min}(Y, p, q + 1)$
+                \End
+          \End
+    \End
+\li $Y[p, q] \gets \id{new-min}$
+\li \Return $\id{min}$
+\end{codebox}
+The problem size is characterized by $\attrib{Y}{row-size}$ and $\attrib{Y}{col-size}$. Let $m = \attrib{Y}{row-size}$ and $n = \attrib{Y}{col-size}$, then
+\[
+(\mbox{running time of problem of size \mathmode{(m, n)}}) = (\mbox{running time of problem of size \mathmode{(m, n - 1)}}) + \bigoh{1}
+\]
+or
+\[
+(\mbox{running time of problem of size \mathmode{(m, n)}}) = (\mbox{running time of problem of size \mathmode{(m - 1, n)}}) + \bigoh{1},
+\]
+provided that $m > 1$ or $n > 1$.
+%%
+\item The procedure below inserts an element $k$ into the correct position in the Young tableau $Y$ provided that $Y$ is not full.
+\begin{codebox}
+\Procname{$\proc{Insert}(Y, k)$}
+\li $i \gets \attrib{Y}{row-size}$
+\li $j \gets \attrib{Y}{col-size}$
+\li \If $Y[i, j] < \infty$
+\li \Then
+          \Error ``Young tableau overflow''
+    \End
+\li $Y[i, j] \gets k$
+\li \While ($i > 1$ and $Y[i - 1, j] > Y[i, j]$) or ($j > 1$ and $Y[i, j - 1] > Y[i, j]$) \label{li:while-loop-start-for-insert}
+\li \Do
+         $\id{largest-r} \gets i$
+\li      $\id{largest-c} \gets j$
+\li      \If $i > 1$ and $Y[i - 1, j] > Y[\id{largest-r}, \id{largest-c}]$
+\li      \Then
+               $\id{largest-r} \gets i - 1$
+\li            $\id{largest-c} \gets j$
+         \End
+\li      \If $j > 1$ and $Y[i, j - 1] > Y[\id{largest-r}, \id{largest-c}]$
+\li      \Then
+               $\id{largest-r} \gets i$
+\li            $\id{largest-c} \gets j - 1$
+         \End
+\li      exchange $Y[i, j]$ with $Y[\id{largest-r}, \id{largest-c}]$
+\li      $i \gets \id{largest-r}$
+\li      $j \gets \id{largest-c}$ \label{li:while-loop-end-for-insert}
+    \End
+\end{codebox}
+To establish its correctness, we state the loop invariant (cf.~Exercise~6.5-7) for the \kw{while} loop in lines \ref{li:while-loop-start-for-insert}--\ref{li:while-loop-end-for-insert} which is straightforward to prove:
+\begin{loopinv}
+\begin{enumerate}[1.]
+%%%
+\item If $Y[i - 1, j]$ and $Y[i + 1, j]$ both exist, then $Y[i - 1, j] \leq Y[i + 1, j]$.
+%%%
+\item If $Y[i, j - 1]$ and $Y[i, j + 1]$ both exist, then $Y[i, j - 1] \leq Y[i, j + 1]$.
+%%%
+\item If $Y[i - 1, j]$ and $Y[i, j + 1]$ both exist, then $Y[i - 1, j] \leq Y[i, j + 1]$.
+%%%
+\item If $Y[i, j - 1]$ and $Y[i + 1, j]$ both exist, then $Y[i, j - 1] \leq Y[i + 1, j]$.
+%%%
+\item The matrix $Y$ satisfies the Young-tableau property, possibly except that $Y[i - 1, j] > Y[i, j]$ or $Y[i, j - 1] > Y[i, j]$ (or both).
+%%%
+\end{enumerate}
+\end{loopinv}
+It is clear that the procedure runs in $\bigoh{m + n}$ time if $Y$ is an $m \by n$ matrix.
+%%
+\item To sort $n^2$ numbers, first create an empty $n \by n$ Young tableau $Y$. Then, insert these $n^2$ numbers into $Y$ one after another. Finally, extract the minimum from $Y$ for $n^2$ times; the numbers extracted from $Y$ form a nondecreasing order.
+%%
+\item Let $Y$ be a Young tableau and let $k$ be a number. Observe that if $Y[i, j] < k$, then $Y[i, j'] < k$ for all $j' \leq j$, and that if $Y[i, j] > k$, then $Y[i', j] > k$ for all $i' \geq i$. Using these observations, the procedure below searches $Y$ for $k$.
+\begin{codebox}
+\Procname{$\proc{Search}(Y, k)$}
+\li $i \gets 1$
+\li $j \gets \attrib{Y}{col-size}$
+\li \While ($i \leq \attrib{Y}{row-size}$ and $j \geq 1$) and $Y[i, j] \neq k$ \label{li:while-loop-start-for-search}
+\li \Do
+         \If $Y[i, j] < k$
+\li      \Then
+               $i \gets i + 1$
+\li      \Else \Comment{$Y[i, j] > k$}
+\li            $j \gets j - 1$
+         \End
+    \End \label{li:while-loop-end-for-search}
+\li \If $i \leq \attrib{Y}{row-size}$ and $j \geq 1$ \Comment{$Y[i, j] \isequal k$}
+\li \Then \Return $\const{true}$
+\li \Else \Return $\const{false}$
+    \End
+\end{codebox}
+Obviously, the \kw{while} loop in lines \ref{li:while-loop-start-for-search}--\ref{li:while-loop-end-for-search} is performed at most $m + n$ times, where $m \defas \attrib{Y}{row-size}$ and $n \defas \attrib{Y}{col-size}$.
+\begin{remark}
+The above procedure was inspired by the one given in \url{https://sites.math.rutgers.edu/~ajl213/CLRS/Ch6.pdf}. Would it be more efficient to use binary search instead of linear search in the \kw{while} loop?
+\end{remark}
+%%
+\end{enumerate}
 %
 \end{enumerate}
