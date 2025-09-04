@@ -409,7 +409,7 @@ provided that $m > 1$ or $n > 1$.
 \end{codebox}
 To establish its correctness, we state the loop invariant (cf.~Exercise~6.5-7) for the \kw{while} loop in lines \ref{li:while-loop-start-for-insert}--\ref{li:while-loop-end-for-insert} which is straightforward to prove:
 \begin{loopinv}
-\begin{enumerate}[1.]
+\begin{enumloopinv}
 %%%
 \item If $Y[i - 1, j]$ and $Y[i + 1, j]$ both exist, then $Y[i - 1, j] \leq Y[i + 1, j]$.
 %%%
@@ -421,7 +421,7 @@ To establish its correctness, we state the loop invariant (cf.~Exercise~6.5-7) f
 %%%
 \item The matrix $Y$ satisfies the Young-tableau property, possibly except that $Y[i - 1, j] > Y[i, j]$ or $Y[i, j - 1] > Y[i, j]$ (or both).
 %%%
-\end{enumerate}
+\end{enumloopinv}
 \end{loopinv}
 It is clear that the procedure runs in $\bigoh{m + n}$ time if $Y$ is an $m \by n$ matrix.
 %%

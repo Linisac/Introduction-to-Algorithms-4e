@@ -72,6 +72,7 @@
 \newcommand{\cartpwr}[2]{#1^{#2}} %cartesian power
 \newcommand{\card}[1]{\left|#1\right|} %cardinality
 \newcommand{\inv}[1]{#1^{-1}} %inverse (of a function)
+\newcommand{\preimage}[1]{#1^\circ} %preimage (of a function)
 %%Probability-theoretic notations
 \newcommand{\ind}[1]{\mathrm{I}\!\ofc{#1}} %indicator random variable
 \newcommand{\given}{\mid}
@@ -92,6 +93,7 @@
 \newcommand{\Init}{\item[Initialization:]} %ingredient of the new environment `proofloopinv'
 \newcommand{\Main}{\item[Maintenance:]} %ingredient of the new environment `proofloopinv'
 \newcommand{\Term}{\item[Termination:]} %ingredient of the new environment `proofloopinv'
+\newenvironment{enumloopinv}{\begin{enumerate}[(1)]}{\end{enumerate}} %enumeration inside a loop invariant
 \newenvironment{recurcorr}{\begin{quote}}{\end{quote}} %recursion correctness
 \newenvironment{proofinduct}{\begin{description}}{\end{description}} %proof by induction
 \newcommand{\Basis}{\item[Basis step:]} %ingredient of the new environment `proofinduct'
@@ -111,7 +113,8 @@
 %\\
 %\\
 %\input{5}
-\input{6}
+%\input{6}
+\input{7}
 \begin{appendices}
 %\input{b}
 %\input{c}

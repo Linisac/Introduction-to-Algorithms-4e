@@ -1,0 +1,114 @@
+\setcounter{chapter}{6}
+\chapter{Quicksort}
+%Section 7.1------------------------------------------------------------------------------------------------------------
+\section{Description of quicksort}
+\subsection*{Note}
+\begin{enumerate}
+%
+\item An alternative to the loop invariant on page 184 (for the \kw{for} loop of lines 3--6 in $\proc{Partition}$) is
+\begin{loopinv}
+At the beginning of each iteration of the loop of lines 3--6, the following hold:
+\begin{enumloopinv}
+%%
+\item The subarray $A[p \subarr i]$ contains exactly the elements originally in $A[p \subarr i]$ (prior to execution of the loop) that are $\leq x$.
+%%
+\item The subarray $A[i + 1 \subarr j - 1]$ contains exactly the elements originally in $A[i + 1 \subarr j - 1]$ (prior to execution of the loop) that are $> x$.
+%%
+\item $A[r] = x$.
+%%
+\end{enumloopinv}
+\end{loopinv}
+%
+\end{enumerate}
+\subsection*{Exercises}
+\begin{enumerate}[\thesection-1]
+%
+\setcounter{enumi}{1}
+%
+\item When all elements in the subarray $A[p \subarr r]$ have the same value, the returned value $i + 1$ for $q$ is $r$. The procedure modifies $\proc{Partition}$ so that it returns $q = \floor{(p + r) / 2}$ when all elements in the subarray $A[p \subarr r]$ have the same value.
+\begin{codebox}
+\Procname{$\proc{Partition}'(A, p, r)$}
+\li $x \gets A[r]$
+\li $i \gets p - 1$
+\li $\id{all-the-same} \gets \const{true}$
+\li \For $j \gets p$ \To $r - 1$
+\li \Do
+         \If   $A[j] \neq x$
+\li      \Then
+               $\id{all-the-same} \gets \const{false}$
+         \End
+\li      \If   $A[j] \leq x$
+\li      \Then
+               $i \gets i + 1$
+\li            exchange $A[i]$ with $A[j]$
+         \End
+    \End
+\li exchange $A[i + 1]$ with $A[r]$
+\li \If $\id{all-the-same} \isequal \const{true}$
+\li \Then \Return $\floor{(p + r) / 2}$
+\li \Else \Return $i + 1$
+    \End
+\end{codebox}
+%
+\item The loop of lines 3--6 runs in exactly $n - 1$ iterations.
+%
+\item Change $\leq$ to $>$ in the \kw{if} test in line 4.
+%
+\end{enumerate}
+%End of Section 7.1-----------------------------------------------------------------------------------------------------
+
+
+%Section 7.2------------------------------------------------------------------------------------------------------------
+\section{Performance of quicksort}
+\subsection*{Exercises}
+\begin{enumerate}[\thesection-1]
+%
+\setcounter{enumi}{3}
+%
+\item Skipped.
+%
+\setcounter{enumi}{5}
+%
+\item Such a split occurs when the last element used as the pivot is not among the largest or smallest $\alpha$ fraction of all elements in the array.
+%
+\end{enumerate}
+%End of Section 7.2-----------------------------------------------------------------------------------------------------
+
+
+%Section 7.3------------------------------------------------------------------------------------------------------------
+\section{A randomized version of quicksort}
+\subsection*{Exercises}
+\begin{enumerate}[\thesection-1]
+%
+\item The worst-case running time of a randomized algorithm is asymptotically equal to that of a deterministic (i.e., not randomized) algorithm, assuming that randomization takes $\bigtheta{1}$ time.
+%
+\item Assume that the input array has length $n$. Note that the best-case and worst-case behaviors of $\proc{Randomized-Quicksort}$ are asymptotically the same as those for the deterministic version, $\proc{Quicksort}$. As noted in Section 7.2 of the text, the worst-case scenario happens when the maximally unbalanced split occurs at every level of the recursion associated with $\proc{Quicksort}$, thus a total of $n - 1 = \bigtheta{n}$ calls are made to $\proc{Random}$. On the other hand, the best-case scenario is when (almost) perfectly balance split occurs at every level of the recursion, which gives rise to a roughly complete binary tree for its recursion tree; there are approximately $n / 2$ internal nodes, resulting in a total of $\bigtheta{n}$ calls to $\proc{Random}$.
+%
+\end{enumerate}
+%End of Section 7.3-----------------------------------------------------------------------------------------------------
+
+
+%Section 7.4------------------------------------------------------------------------------------------------------------
+\section{Analysis of quicksort}
+\subsection*{Note}
+\begin{enumerate}
+%
+\item Line 7 of the proof of Lemma 7.3~on page 196: Change $\proc{Randomized-Select}$ to $\proc{Randomized-Partition}$.
+%
+\end{enumerate}
+\subsection*{Exercises}
+\begin{enumerate}[\thesection-1]
+%
+\item HERE.
+%
+\end{enumerate}
+%End of Section 7.4-----------------------------------------------------------------------------------------------------
+
+
+%Problems of Chapter 7--------------------------------------------------------------------------------------------------
+\section*{Problems}
+\begin{enumerate}[\thechapter-1]
+%
+\item a
+%
+\end{enumerate}

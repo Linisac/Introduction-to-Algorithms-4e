@@ -22,6 +22,10 @@
 
 Alternatively, argue that for every element $a \in A_1 \union A_2 \union \etc \union A_n$, it holds that $a$ is counted exactly once on the right-hand side. More specifically, if $a \in A_{i_1} \intsc A_{i_2} \intsc \etc \intsc A_{i_k}$ for $1 \leq i_1 < i_2 < \etc < i_k \leq n$, then the occurrences of $a$ on the right-hand side are counted up by $1$ for each of $\card{A_{i_1}}, \card{A_{i_2}}, \etl, \card{A_{i_k}}$, and are counted down by $1$ for each of $\card{A_{i_1} \intsc A_{i_2}}, \card{A_{i_1} \intsc A_{i_3}}, \etl$, and so on (and note that ${k \choose 1} - {k \choose 2} + \etc + (-1)^{k - 2 \multp \floor{k / 2} + 1} {k \choose k} = {k \choose 0} = 1$).
 %
+\setcounter{enumi}{4}
+%
+\item Use induction on the size of $S$ or use a counting method based on the rule of product (see section C.1).
+%
 \end{enumerate}
 %End of Section B.1-----------------------------------------------------------------------------------------------------
 
@@ -47,11 +51,11 @@ Alternatively, argue that for every element $a \in A_1 \union A_2 \union \etc \u
 %%
 \item Since $f(A) \subseteq B$, we have $\card{f(A)} \leq \card{B}$. If $f$ is injective, then $\card{A} = \card{f(A)}$ and hence $\card{A} \leq \card{B}$.
 %%
-\item If $f$ is surjective, then $\setm{f^\circ(b)}{b \in B}$ forms a partition of $A$, where $f^\circ(b) = \setm{a \in A}{f(a) = b}$ denotes the \emph{preimage} of $b$ under $f$. Thus,
+\item If $f$ is surjective, then $\setm{\preimage{f}(b)}{b \in B}$ forms a partition of $A$, where $\preimage{f}(b) = \setm{a \in A}{f(a) = b}$ denotes the \emph{preimage} of $b$ under $f$. Thus,
 \[
 \begin{array}{llll}
-\card{A} & =    & \ds{\sum\limits_{b \in B} \card{f^\circ(b)}} & \mathtext{(since the sets \mathmode{f^\circ(b)} are pairwise disjoint and their union is \mathmode{A})} \cr
-         & \geq & \ds{\sum\limits_{b \in B} 1} & \mathtext{(since the sets \mathmode{f^\circ(b)} are nonempty)} \cr
+\card{A} & =    & \ds{\sum\limits_{b \in B} \card{\preimage{f}(b)}} & \mathtext{(since the sets \mathmode{\preimage{f}(b)} are pairwise disjoint and their union is \mathmode{A})} \cr
+         & \geq & \ds{\sum\limits_{b \in B} 1} & \mathtext{(since the sets \mathmode{\preimage{f}(b)} are nonempty)} \cr
          & =    & \card{B}. & \cr
 \end{array}
 \]
@@ -83,7 +87,7 @@ g(m, n) = \frac{1}{2}(m + n)(m + n + 1) + m.
 %End of Section B.3-----------------------------------------------------------------------------------------------------
 
 %Section B.4------------------------------------------------------------------------------------------------------------
-\section{Functions}
+\section{Graphs}
 \subsection*{Exercises}
 \begin{enumerate}[\thesection-1]
 %
@@ -103,7 +107,7 @@ g(m, n) = \frac{1}{2}(m + n)(m + n + 1) + m.
 %End of Section B.4-----------------------------------------------------------------------------------------------------
 
 %Section B.5------------------------------------------------------------------------------------------------------------
-\section{Functions}
+\section{Trees}
 \subsection*{Exercises}
 \begin{enumerate}[\thesection-1]
 %
