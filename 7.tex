@@ -52,7 +52,7 @@ At the beginning of each iteration of the loop of lines 3--6, the following hold
 %
 \item The loop of lines 3--6 runs in exactly $n - 1$ iterations.
 %
-\item Change $\leq$ to $>$ in the \kw{if} test in line 4.
+\item Change $\leq$ to $\geq$ in the \kw{if} test in line 4.
 %
 \end{enumerate}
 %End of Section 7.1-----------------------------------------------------------------------------------------------------
@@ -65,11 +65,11 @@ At the beginning of each iteration of the loop of lines 3--6, the following hold
 %
 \setcounter{enumi}{3}
 %
-\item Skipped.
+\item As noted in the last paragraph of the subsection ``Worst-case partitioning,`` when the input array is almost sorted, $\proc{Insertion-Sort}$ runs in linear time while $\proc{Quicksort}$ runs in quadratic time.
 %
 \setcounter{enumi}{5}
 %
-\item Such a split occurs when the last element used as the pivot is not among the largest or smallest $\alpha$ fraction of all elements in the array.
+\item Such a split occurs when the last element used as the pivot is not among the highest or lowest $\alpha$ portion of all elements in the array.
 %
 \end{enumerate}
 %End of Section 7.2-----------------------------------------------------------------------------------------------------
@@ -80,9 +80,9 @@ At the beginning of each iteration of the loop of lines 3--6, the following hold
 \subsection*{Exercises}
 \begin{enumerate}[\thesection-1]
 %
-\item The worst-case running time of a randomized algorithm is asymptotically equal to that of a deterministic (i.e., not randomized) algorithm, assuming that randomization takes $\bigtheta{1}$ time.
+\item The worst-case running time of a randomized algorithm is asymptotically equal to that of a deterministic (i.e., not randomized) algorithm, assuming that the time taken by randomization is dominated by the worst-case running time of the deterministic algorithm.
 %
-\item Assume that the input array has length $n$. Note that the best-case and worst-case behaviors of $\proc{Randomized-Quicksort}$ are asymptotically the same as those for the deterministic version, $\proc{Quicksort}$. As noted in Section 7.2 of the text, the worst-case scenario happens when the maximally unbalanced split occurs at every level of the recursion associated with $\proc{Quicksort}$, thus a total of $n - 1 = \bigtheta{n}$ calls are made to $\proc{Random}$. On the other hand, the best-case scenario is when (almost) perfectly balance split occurs at every level of the recursion, which gives rise to a roughly complete binary tree for its recursion tree; there are approximately $n / 2$ internal nodes, resulting in a total of $\bigtheta{n}$ calls to $\proc{Random}$.
+\item Assume that the input array has length $n$. Note that the best-case and worst-case behaviors of $\proc{Randomized-Quicksort}$ are asymptotically the same as those for the deterministic version, $\proc{Quicksort}$. As noted in Section 7.2 of the text, the worst-case scenario happens when the maximally unbalanced split occurs at every level of the recursion associated with $\proc{Quicksort}$, thus a total of $n - 1 = \bigtheta{n}$ calls are made to $\proc{Random}$. On the other hand, the best-case scenario is when (almost) perfectly balanced split occurs at every level of the recursion, which gives rise to a roughly complete binary tree for its recursion tree; there are approximately $n / 2$ internal nodes, resulting in a total of $\bigtheta{n}$ calls to $\proc{Random}$.
 %
 \end{enumerate}
 %End of Section 7.3-----------------------------------------------------------------------------------------------------
@@ -98,6 +98,20 @@ At the beginning of each iteration of the loop of lines 3--6, the following hold
 \end{enumerate}
 \subsection*{Exercises}
 \begin{enumerate}[\thesection-1]
+%
+\setcounter{enumi}{1}
+%
+\item (Sketch). Let $T(n)$ be the best-case running time of quicksort, then
+\[
+T(n) = \min\setm{T(q) + T(n - q - 1)}{0 \leq q \leq n - 1} + \bigtheta{n}.
+\]
+Assume $T(n) \geq c n \lg n$ for some suitable $c > 0$, we have
+\[
+T(n) \geq c \multp \min\setm{q \lg q + (n - 1 - q) \lg (n - 1 - q)}{0 \leq q \leq n - 1}.
+\]
+Consider the function $f(x) = x \lg x + (n - 1 - x) \lg (n - 1 - x)$ whose domain consists of \emph{real numbers} in $(0, n - 1)$; note that $f(n - 1 - x) = f(x)$ for $x \in (0, n - 1)$. It follows that $f'(x) < 0$ for $x \in (0, (n - 1)/2)$ and $f'(x) > 0$ for $x \in ((n - 1)/2, n - 1)$; moreover $f'((n - 1)/2) = 0$.
+%
+\setcounter{enumi}{3}
 %
 \item HERE.
 %
