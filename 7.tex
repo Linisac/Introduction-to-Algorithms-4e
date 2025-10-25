@@ -113,7 +113,30 @@ Consider the function $f(x) = x \lg x + (n - 1 - x) \lg (n - 1 - x)$ whose domai
 %
 \setcounter{enumi}{3}
 %
-\item HERE.
+\item We can derive the lower bound $\bigomega{n \lg n}$ for the expected running time of $\proc{Randomized-Quicksort}$  analogously to the textbook, by adopting the following changes:
+\begin{enumerate}[(1)]
+%%
+\item Change $\bigoh{n + X}$ to $\bigomega{n + X}$ in Lemma~7.1: Due to the condition in line 1 of $\proc{Quicksort}$, for all $1 \leq i < n$ we have that at least one between $A[i]$ and $A[i + 1]$ is selected as a pivot in an execution of $\proc{Partition}$. Thus, there can be at least $\floor{n / 2}$ calls to $\proc{Partition}$ over the entire execution of the quicksort algorithm, and hence there are at least $2 \multp \floor{n / 2}$ recursive calls to $\proc{Quicksort}$ itself.
+%%
+\item Change $\bigoh{n \lg n}$ to $\bigomega{n \lg n}$ in Theorem~7.4: Use the following in place of the inequality at the bottom of page~197 in textbook:
+\[
+\ds{\sum^{n - 1}_{i = 1} \sum^{n - i}_{k = 1} \frac{2}{k + 1} \geq \sum^{\floor{n / 2}}_{i = 1} \sum^{\ceil{n / 2}}_{k = 1} \frac{2}{k + 1} = \sum^{\floor{n / 2}}_{i = 1} \parenf{-2 + \sum^{\ceil{n / 2}}_{k = 0} \frac{2}{k + 1}}}
+\]
+for sufficiently large $n$.
+%%
+\end{enumerate}
+%
+\item (INCOMPLETE)
+%
+\item There are ${n \choose 3}$ possible combinations of choosing three elements randomly from the input array. For ease of analysis, it is convenient to assume that all of the elements are distinct; more precisely, let $z_1, z_2, \etl, z_n$ be the elements in the input array with $z_1 < z_2 < \etc < z_n$. The desired probability can be evaluated by noting the two mutually exclusive events below:
+\begin{enumerate}[(1)]
+%%
+\item The median of the three randomly chosen elements is $z_k$ for some $2 \leq k \leq \alpha n$. Then the smallest and the largest elements among the three are then $z_i$ for some $1 \leq i < k$ and $z_j$ for some $k < j \leq n$, respectively.
+%%
+\item This median of the three randomly chosen elements is $z_k$ for some $(1 - \alpha)n + 1 \leq k \leq n - 1$. The smallest and the largest elements among the three are $z_i$ for some $1 \leq i < k$ and $z_j$ for some $k < j \leq n$, respectively.
+%%
+\end{enumerate}
+Note that the above two events have the same probability.
 %
 \end{enumerate}
 %End of Section 7.4-----------------------------------------------------------------------------------------------------
@@ -123,6 +146,13 @@ Consider the function $f(x) = x \lg x + (n - 1 - x) \lg (n - 1 - x)$ whose domai
 \section*{Problems}
 \begin{enumerate}[\thechapter-1]
 %
-\item a
+\item
+\begin{enumerate}[\it a.]
+%%
+\setcounter{enumii}{1}
+%%
+\item Assume that the elements in the subarray $A[p \subarr r]$ are all equal, and let $n \defas r - p + 1$, i.e., the number of elements in this subarray. Then, $\proc{Hoare-Partition}$ differs from $\proc{Partition}$ in that the former returns $\floor{(p + r)/2}$ (with $j = (p + r - 1)/2 = i - 1$ if $n$ is even and $j = (p + r)/2 = i$ if $n$ is odd) while the latter returns $r$. Thus, $\proc{Hoare-Partition}$ performs better than $\proc{Partition}$ in this situation in that the former creates a perfectly balanced partition of $A[p \subarr r]$ while the latter creates a most unbalanced partition.
+%%
+\end{enumerate}
 %
 \end{enumerate}

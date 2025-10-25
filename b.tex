@@ -46,19 +46,19 @@ Alternatively, argue that for every element $a \in A_1 \union A_2 \union \etc \u
 \subsection*{Exercises}
 \begin{enumerate}[\thesection-1]
 %
-\item
-\begin{enumerate}[(a)]
-%%
-\item Since $f(A) \subseteq B$, we have $\card{f(A)} \leq \card{B}$. If $f$ is injective, then $\card{A} = \card{f(A)}$ and hence $\card{A} \leq \card{B}$.
-%%
-\item If $f$ is surjective, then $\setm{\preimage{f}(b)}{b \in B}$ forms a partition of $A$, where $\preimage{f}(b) = \setm{a \in A}{f(a) = b}$ denotes the \emph{preimage} of $b$ under $f$. Thus,
+\item First note that the set $\setm{\preimage{f}(b)}{b \in f(A)}$ forms a partition of $A$, where $\preimage{f}(b) = \setm{a \in A}{f(a) = b}$ denotes the \emph{preimage} of $b$ under $f$. Thus,
 \[
 \begin{array}{llll}
-\card{A} & =    & \ds{\sum\limits_{b \in B} \card{\preimage{f}(b)}} & \mathtext{(since the sets \mathmode{\preimage{f}(b)} are pairwise disjoint and their union is \mathmode{A})} \cr
-         & \geq & \ds{\sum\limits_{b \in B} 1} & \mathtext{(since the sets \mathmode{\preimage{f}(b)} are nonempty)} \cr
-         & =    & \card{B}. & \cr
+\card{A} & =    & \ds{\sum\limits_{b \in f(A)} \card{\preimage{f}(b)}} & \mathtext{(since the sets \mathmode{\preimage{f}(b)} are mutually disjoint and their union is \mathmode{A})} \cr
+         & \geq & \ds{\sum\limits_{b \in f(A)} 1} & \mathtext{(since the sets \mathmode{\preimage{f}(b)} are nonempty)} \cr
+         & =    & \card{f(A)}. & \cr
 \end{array}
 \]
+\begin{enumerate}[\it a.]
+%%
+\item Since $f(A) \subseteq B$, we have $\card{f(A)} \leq \card{B}$. If $f$ is injective, i.e., if $\preimage{f}(b)$ is a singleton set for every $b \in f(A)$, then we have $\card{A} = \card{f(A)}$ and hence $\card{A} \leq \card{B}$.
+%%
+\item If $f$ is surjective, then we have $\card{f(A)} = \card{B}$ and hence $\card{A} \geq \card{B}$.
 %%
 \end{enumerate}
 %
@@ -95,7 +95,7 @@ g(m, n) = \frac{1}{2}(m + n)(m + n + 1) + m.
 %
 \item A non-simple path (cycle) contains a vertex that occurs at least twice.
 %
-\item Use induction on the number of vertices $\card{V}$. In the inductive step, consider a distinguished vertex $v$ and the graph induced by $V - \sete{v}$.
+\item By strong induction on the number of vertices $\card{V}$. In the inductive step, consider an arbitrary vertex $v$ from $G$ and the graph induced by $V - \sete{v}$, which consists of $n$ connected components for some $n \geq 1$; each of these connected components is connected to $v$ in $G$ via at least one edge.
 %
 \item (INCOMPLETE) Verification part skipped. Reflexivity and transitivity hold in the case of directed graphs.
 %
