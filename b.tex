@@ -46,19 +46,28 @@ Alternatively, argue that for every element $a \in A_1 \union A_2 \union \etc \u
 \subsection*{Exercises}
 \begin{enumerate}[\thesection-1]
 %
-\item First note that the set $\setm{\preimage{f}(b)}{b \in f(A)}$ forms a partition of $A$, where $\preimage{f}(b) = \setm{a \in A}{f(a) = b}$ denotes the \emph{preimage} of $b$ under $f$. Thus,
+\item Let us observe the following:
+\begin{enumerate}[(1)]
+%%
+\item The set $\setm{\preimage{f}(b)}{b \in f(A)}$ forms a partition of $A$, where $\preimage{f}(b) = \setm{a \in A}{f(a) = b}$ denotes the \emph{preimage} of $b$ under $f$. Thus,
 \[
 \begin{array}{llll}
-\card{A} & =    & \ds{\sum\limits_{b \in f(A)} \card{\preimage{f}(b)}} & \mathtext{(since the sets \mathmode{\preimage{f}(b)} are mutually disjoint and their union is \mathmode{A})} \cr
+\card{A} & =    & \ds{\sum\limits_{b \in f(A)} \card{\preimage{f}(b)}} & \mathtext{(since the sets \mathmode{\preimage{f}(b)} are pairwise disjoint and their union is \mathmode{A})} \cr
          & \geq & \ds{\sum\limits_{b \in f(A)} 1} & \mathtext{(since the sets \mathmode{\preimage{f}(b)} are nonempty)} \cr
-         & =    & \card{f(A)}. & \cr
+         & =    & \card{f(A)}, & \cr
 \end{array}
 \]
+for which the equality holds if and only if $f$ is injective, i.e., if and only if $\preimage{f}(b)$ is a singleton set for every $b \in f(A)$.
+%%
+\item Since $f(A) \subseteq B$, we have $\card{f(A)} \leq \card{B}$, for which the equality holds if and only if $f$ is surjective, i.e., if and only if $f(A) = B$.
+%%
+\end{enumerate}
+Now the two parts of this exercise easily follow.
 \begin{enumerate}[\it a.]
 %%
-\item Since $f(A) \subseteq B$, we have $\card{f(A)} \leq \card{B}$. If $f$ is injective, i.e., if $\preimage{f}(b)$ is a singleton set for every $b \in f(A)$, then we have $\card{A} = \card{f(A)}$ and hence $\card{A} \leq \card{B}$.
+\item If $f$ is injective, equivalently, if $\card{A} = \card{f(A)}$, then $\card{A} \leq \card{B}$.
 %%
-\item If $f$ is surjective, then we have $\card{f(A)} = \card{B}$ and hence $\card{A} \geq \card{B}$.
+\item If $f$ is surjective, equivalently, if $\card{f(A)} = \card{B}$, then $\card{A} \geq \card{B}$.
 %%
 \end{enumerate}
 %
